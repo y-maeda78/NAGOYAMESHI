@@ -14,6 +14,12 @@ from pathlib import Path
 import environ # 追記
 from django.contrib import messages # 追記
 
+# MySQL
+import os # 追記
+from dotenv import load_dotenv # 追記
+
+load_dotenv()  # 追記
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -49,7 +55,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base', #追記
+    # 'cloudinary_storage', # 追記
+    # 'cloudinary', # 追記
+    'base', # 追記
 ]
 
 MIDDLEWARE = [
@@ -88,8 +96,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_DATABASE'),
+        'USER': os.environ.get('DB_USERNAME'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT', '3306'),
+        'OPTIONS': {'init_command': "SET sql_mode='TRADITIONAL'",},
     }
 }
 
