@@ -76,7 +76,7 @@ class Shop(models.Model):   # Modelは、jangoのクラスで継承している
     # 画像
     image = models.ImageField(default="", blank=True, upload_to=upload_image_to)
     # カテゴリー # ForeignKeyとon_delete=はセットで必須
-    category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)    
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)    
     # タグ（中間フィールド）
     # 複数設定することを前提にtagsとし、ManyToManyFieldで定義することで中間フィールドとする
     tags = models.ManyToManyField(Tag)

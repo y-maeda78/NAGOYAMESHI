@@ -16,4 +16,4 @@ class Favorite(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.name} (お気に入り店舗：{self.shop.name})"
+        return f"{self.user.name} (登録店舗：{self.shop.name})"

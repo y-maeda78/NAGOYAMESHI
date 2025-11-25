@@ -141,8 +141,15 @@
 .card-title {
     color: #fff;
     text-shadow: 0.25rem 0.25rem 1rem rgb(0 0 0 / 60%);
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 650;
+}
+
+.popular .card-title{
+  color: #000;
+  font-size: 16px;
+  text-shadow: none;
+  font-weight: 500;
 }
 
 .item_btn {
@@ -225,6 +232,12 @@
 }
 .star-rating[data-rate="0"]:after {
   width: 0%;
+}
+
+.category .row .col,
+.tag .row .col,
+.popular .row .col {
+  margin-bottom: 0.5rem;
 }
 
 /* @mediaクエリ内の定義 */

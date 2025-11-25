@@ -18,7 +18,7 @@ from django.urls import path
 from base import views
 
 urlpatterns = [
-    # path('', views.IndexListViews.as_view()),       # トップページ
-
     path('admin/', admin.site.urls),
+
+    path('', views.IndexListView.as_view()),       # トップページ
 ]

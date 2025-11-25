@@ -38,7 +38,7 @@
 <section class="category sec">
     <div class="wrap">
         <h2>カテゴリから探す</h2>
-        <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-2 mb-2">
+        <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-1 mb-2">
             <div class="col">
                 <a href="restaurants?category_id=33" class="card-link">
                     <div class="card">
@@ -222,29 +222,12 @@
 
         <h2 class="mb-3">人気のお店</h2>
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
+            {% for object in object_list %}
             <div class="col">
-                <a href="restaurants/84" class="link-dark card-link">
-                    <div class="card h-100">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/sakana.jpg" class="card-img-top vertical-card-image">
-                        <div class="card-body">
-                            <h3 class="card-title">魚と野菜と酒 じゃばらむ</h3>
-                            <div class="text-muted small mb-1">
-                                <div class="d-inline-block">
-                                    海鮮料理
-                                </div>
-                                <div class="d-inline-block">
-                                    居酒屋
-                                </div>
-                            </div>
-                            <p class="card-text">
-                                <span class="star-rating me-1" data-rate="4"></span>
-                                4.13
-                            </p>
-                        </div>
-                    </div>
-                </a>
+                {% include 'snippets/shop_box.html' %}
             </div>
-            <div class="col">
+            {% endfor %}
+            <!-- <div class="col">
                 <a href="restaurants/96" class="link-dark card-link">
                     <div class="card h-100">
                         <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/burger.jpg" class="card-img-top vertical-card-image">
@@ -339,7 +322,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
