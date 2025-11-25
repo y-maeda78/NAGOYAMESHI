@@ -34,7 +34,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    id = models.CharField(default=create_id, primary_key=True, max_length=22)
+    id = models.CharField(default=create_id, primary_key=True, max_length=50)
     username = models.CharField(
         max_length=50, unique=True, verbose_name='ユーザー名')
     email = models.EmailField(max_length=255, unique=True, verbose_name='メールアドレス')

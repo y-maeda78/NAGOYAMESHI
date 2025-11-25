@@ -38,7 +38,7 @@ class Tag(models.Model):
 """
 # 曜日マスタ
 class Weekday(models.Model):
-    index = models.PositiveIntegerField(primary_key=True, verbose_name='管理コード')
+    id = models.PositiveIntegerField(primary_key=True, verbose_name='管理コード')
     name = models.CharField(max_length=10, unique=True, verbose_name='曜日')
 
 # 店舗と曜日を紐づける定休日モデル
