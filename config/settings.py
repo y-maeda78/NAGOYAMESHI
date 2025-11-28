@@ -141,7 +141,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'     
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 追記
 
 
@@ -162,3 +162,14 @@ MESSAGE_TAGS = { # 指定したtagによってクラスを追加して装飾を�
 
 # custom_context カスタムコンテキスト # 追記
 TITLE = 'NAGOYAMESHI'
+
+# カスタムユーザーモデル  # 追記
+AUTH_USER_MODEL = 'base.User'
+ 
+LOGIN_URL = '/login/'
+ 
+LOGIN_REDIRECT_URL = '/'
+ 
+LOGOUT_URL = '/logout/'
+ 
+LOGOUT_REDIRECT_URL = '/login/'

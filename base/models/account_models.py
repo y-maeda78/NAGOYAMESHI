@@ -39,7 +39,7 @@ class User(AbstractBaseUser):
         max_length=50, unique=True, verbose_name='ユーザー名')
     email = models.EmailField(max_length=255, unique=True, verbose_name='メールアドレス')
     is_paymentstatus = models.BooleanField(default=False, verbose_name='有料会員')
-    is_deleted = models.BooleanField(default=False, verbose_name='削除状態')
+    is_active = models.BooleanField(default=True, verbose_name='アクティブ状態')
     is_admin = models.BooleanField(default=False, verbose_name='管理者権限')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
