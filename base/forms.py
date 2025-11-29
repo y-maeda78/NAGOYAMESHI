@@ -15,16 +15,16 @@ class CustomUserCreationForm(DjangoUserCreationForm): # 修正：複数モデル
             "email",
         )
  
-    def clean_password(self):
-        password = self.cleaned_data.get("password1")
-        return password
+    # def clean_password(self):
+    #     password = self.cleaned_data.get("password1")
+    #     return password
  
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
+    # def save(self, commit=True):
+    #     user = super().save(commit=False)
+    #     user.set_password(self.cleaned_data["password1"])
+    #     if commit:
+    #         user.save()
+    #     return user
 
 
 # 同時にprofileのフォームを処理する
