@@ -24,7 +24,8 @@
 <!-- search -->
 <div class="search bgbge">
     <!-- <div class="container"> -->
-        <h2 class="search_ttl"><img src="assets/images/img_icon01.png" alt="">SEARCH<span class="search_subttl">お店を探す</span></h2>
+        <h2 class="search_ttl"><img src="assets/images/img_icon01.png" alt="">SEARCH</h2>
+        <span class="search_subttl">お店を探す</span>
         <form method="GET" action="" class="user-search-box">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="店舗名・エリア・カテゴリ" name="keyword">
@@ -37,7 +38,8 @@
 <!-- category -->
 <section class="category sec">
     <div class="wrap">
-        <h2>カテゴリから探す</h2>
+        <h2 class="text-center mb-1">カテゴリから探す</h2>
+        <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-1 mb-2">
             <div class="col">
                 <a href="restaurants?category_id=33" class="card-link">
@@ -132,14 +134,15 @@
 <!-- tag -->
 <section class="tag sec">
     <div class="wrap">
-        <h2>エリアから探す</h2>
+        <h2 class="text-center mb-1">エリアから探す</h2>
+        <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-2 mb-2">
             <div class="col">
                 <a href="restaurants?category_id=33" class="card-link">
                     <div class="card">
-                        <img src="img_eria01.jpg" class="card-img vertical-card-image" alt="丼物">
+                        <img src="img_eria01.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
-                            <h3 class="card-title">名古屋駅<br>周辺</h5>
+                            <h3 class="card-title text-center">名古屋駅<br>周辺</h5>
                         </div>
                     </div>
                 </a>
@@ -147,7 +150,7 @@
             <div class="col">
                 <a href="restaurants?category_id=19" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria02.jpg" class="card-img vertical-card-image" alt="うどん">
+                        <img src="img_eria02.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">栄</h5>
                         </div>
@@ -157,7 +160,7 @@
             <div class="col">
                 <a href="restaurants?category_id=4" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria03.jpg" class="card-img vertical-card-image" alt="ラーメン">
+                        <img src="img_eria03.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">大須・矢場町</h5>
                         </div>
@@ -167,7 +170,7 @@
             <div class="col">
                 <a href="restaurants?category_id=27" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria04.jpg" class="card-img vertical-card-image" alt="味噌カツ">
+                        <img src="img_eria04.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">伏見・丸の内</h5>
                         </div>
@@ -177,7 +180,7 @@
             <div class="col">
                 <a href="restaurants?category_id=32" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria05.jpg" class="card-img vertical-card-image" alt="揚げ物">
+                        <img src="img_eria05.jpg" class="card-img vertical-card-image" >
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">豊田</h5>
                         </div>
@@ -187,9 +190,9 @@
             <div class="col">
                 <a href="restaurants?category_id=26" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria06" class="card-img vertical-card-image" alt="モーニング">
+                        <img src="img_eria06" class="card-img vertical-card-image">
                         <div class="card-img-overlay text-align-center d-flex justify-content-center align-items-center overlay-background">
-                            <h3 class="card-title">セントレア<br>空港</h5>
+                            <h3 class="card-title text-center">セントレア<br>空港</h5>
                         </div>
                     </div>
                 </a>
@@ -220,7 +223,8 @@
 <section class="popular sec">
     <div class="wrap">
 
-        <h2 class="mb-3">人気のお店</h2>
+        <h2 class="mb-1 text-center">人気のお店</h2>
+        <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
             {% for object in object_list %}
             <div class="col">

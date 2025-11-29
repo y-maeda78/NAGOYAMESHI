@@ -69,15 +69,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 75px;
+    border-radius:5px;
 }
 
 .search_ttl{
     font-family: "Tilt Warp", sans-serif;
     font-size: 2.5rem;
-    color: var(--cl-gold);
+    color: var(--cl-brown);
     font-weight: 400;
     letter-spacing: 0.2rem;
+    margin-bottom: 0;
+}
+
+.search_ttl::after{
+  content: " ";
+  
 }
 
 .search_ttl img{
@@ -89,10 +95,11 @@
 
 .search_subttl{
     padding-left: 20px;
-    color: var(--cl-gold);
+    color: var(--cl-brown);
     font-size: 0.85rem;
     font-weight: 550;
     vertical-align: middle;
+    margin-bottom: 1rem;
 }
 
 .user-search-box {

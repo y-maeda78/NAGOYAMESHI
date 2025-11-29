@@ -8,7 +8,9 @@ from base.forms import CustomUserCreationForm, ProfileForm # 修正：フォー�
 from django.db import transaction # 追加
 from django.contrib import messages
 from django.shortcuts import render, redirect # 追加
- 
+from django.urls import reverse_lazy # 追加
+from base.forms import EmailAuthenticationForm
+
 # 新規登録のビュー
 class SignUpView(CreateView):
     # form_class = UserCreationForm
@@ -42,10 +44,13 @@ class SignUpView(CreateView):
         if user_form.is_valid() and profile_form.is_valid():
             return self.forms_valid(user_form, profile_form)
         else:
+            print("User Form Errors:", user_form.errors)
+            print("Profile Form Errors:", profile_form.errors)
             return self.forms_invalid(user_form, profile_form)
     
     # 追加
     @transaction.atomic
+    # 新規登録が有効だった場合
     def forms_valid(self, user_form, profile_form):
         # Userモデルを保存
         self.object = user_form.save()
@@ -53,23 +58,30 @@ class SignUpView(CreateView):
         # Profileモデルを保存
         profile = profile_form.save(commit=False)
         profile.user = self.object # ユーザーとProfileを紐づけ
-        profile.save()        
+        profile.save()
 
-    # 新規登録が有効だった場合
-    def form_valid(self, form):
         messages.success(self.request, '新規登録が完了しました。続けてログインしてください。')
-        return super().form_valid(form)
+        return super().form_valid(user_form, profile_form)
+
+    # # 新規登録が有効だった場合
+    # def form_valid(self, form):
+    #     messages.success(self.request, '新規登録が完了しました。続けてログインしてください。')
+    #     return super().form_valid(form)
     
     # 追加：エラーの場合（両方のフォームをコンテキストに戻す）
     def forms_invalid(self, user_form, profile_form):
-        return self.render_to_response(self.get_context_data(form=user_form, profile_form=profile_form))
-    def form_valid(self, form):
-        messages.success(self.request, '入力内容に誤りがあります。再度確認してください。')
-        return super().form_valid(form)
+        messages.error(self.request, user_form.errors)
+        messages.error(self.request, profile_form.errors)
+        return self.render_to_response(self.get_context_data(user_form=user_form, profile_form=profile_form))
  
  
 class Login(LoginView):
     template_name = 'pages/login.html'
+
+    # indexに戻す
+    success_url = reverse_lazy('index')
+    # 認証する処理
+    form_class = EmailAuthenticationForm
  
     def form_valid(self, form):
         messages.success(self.request, 'ログインしました。')

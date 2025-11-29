@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm # 追加：複数モデルを使用するために追加
 from base.models import Profile # 追加：profileモデルをインポート
+from django.contrib.auth.forms import AuthenticationForm # 追加：認証するため
  
 # class UserCreationForm(forms.ModelForm):
 class CustomUserCreationForm(DjangoUserCreationForm): # 修正：複数モデルを使用するため
@@ -15,12 +16,12 @@ class CustomUserCreationForm(DjangoUserCreationForm): # 修正：複数モデル
         )
  
     def clean_password(self):
-        password = self.cleaned_data.get("password")
+        password = self.cleaned_data.get("password1")
         return password
  
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
         return user
@@ -45,4 +46,17 @@ class ProfileForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
+# 追加 AuthenticationForm＝認証をするクラス
+class EmailAuthenticationForm(AuthenticationForm):
 
+    username = forms.CharField(widget=forms.HiddenInput(), required=False) # 必須ではない隠しフィールドとして再定義
+    email = forms.EmailField(label='メールアドレス', max_length=254,
+                                widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'メールアドレス'}))
+
+    def clean(self):
+        # この clean メソッド内で、メールアドレスをユーザー名として扱い、
+        # 親クラスの AuthenticationForm が DB を検索・認証します
+        email = self.cleaned_data.get('email')
+        if email:
+            self.cleaned_data['username'] = email
+        return super().clean()
