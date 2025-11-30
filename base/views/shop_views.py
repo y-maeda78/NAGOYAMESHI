@@ -10,13 +10,13 @@ class IndexListView(ListView):
 # 詳細ページ
 class ShopDetailView(DetailView):
     model = Shop
-    template_name = 'pages/detail.html'
+    template_name = 'pages/restaurants_detail.html'
 
 
 # 検索した際に表示する店舗一覧ページ
 class ShopListView(ListView):
     model = Shop
-    template_name = 'pages/shops.html'
+    template_name = 'pages/restaurants_list.html'
     # ordering = 'created_at' #新規掲載順
     paginate_by = 10   # 1ページにいくつ表示するか
 

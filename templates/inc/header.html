@@ -2,7 +2,7 @@
 <div id="header">
     <nav class="navbar navbar-expand-md navbar-light">
         <div class="container">
-            <a class="navbar-brand app-name" href="/">
+            <a class="navbar-brand app-name" href="{% url 'index' %}">
                 <div class="logo d-flex align-items-center">
                     <img class="logo_img me-1" src="{% static 'assets/images/logo.png' %}" alt="nagoyameshi">
                     <h1>NAGOYAMESHI</h1>
@@ -16,7 +16,7 @@
                 <ul class="navbar-nav row ms-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/">マイページ</a>
+                        <a class="nav-link" href="{% url 'mypage' %}">マイページ</a>
                     </li>
                     <!-- 後々はマイページの中に入れる -->
                     <li class="nav-item">

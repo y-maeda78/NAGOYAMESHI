@@ -3,9 +3,9 @@
 {% block main %}
 
 <!-- ↓↓ main ↓↓ -->
-<nav class="" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb;">
+<nav class="mb-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb;">
     <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="{% url 'index' %}">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">HOME</a></li>
         <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
     </ol>
 </nav>
@@ -13,7 +13,7 @@
 <div class="search bgbge">
     <h2 class="search_ttl"><img src="../static/assets/images/img_icon01.png" alt="">SEARCH</h2>
     <span class="search_subttl">お店を探す</span>
-    <form method="GET" action="{% url 'restaurants' %}" class="user-search-box">
+    <form method="GET" action="{% url 'restaurants_list' %}" class="user-search-box">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="店舗名・エリア・カテゴリ" name="keyword" value="{{ shop.GET.keyword }}">
             <button type="submit" class="btn search_btn shadow-sm">検索</button>
@@ -30,7 +30,7 @@
                     カテゴリから探す
                 </div>
                 <div class="card-body">
-                    <form method="GET" action="{% url 'restaurants' %}" class="w-100">
+                    <form method="GET" action="{% url 'restaurants_list' %}" class="w-100">
                         <div class="form-group mb-3">
                             <select class="form-control form-select" name="category_id" required>
                                 <option value="" hidden>選択してください</option>
@@ -76,7 +76,7 @@
                     エリアから探す
                 </div>
                 <div class="card-body">
-                    <form method="GET" action="{% url 'restaurants' %}" class="w-100">
+                    <form method="GET" action="{% url 'restaurants_list' %}" class="w-100">
                         <div class="form-group mb-3">
                             <select class="form-control form-select" name="price" required>
                                 <option value="" hidden>選択してください</option>
@@ -134,7 +134,7 @@
             <!-- {% for shop in shops %} -->
             <div class="mb-3">
                 <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/107" class="link-dark card-link">
-                <!-- <a href="{% url 'detail' pk=shop.pk %}" class="link-dark card-link"> -->
+                <!-- <a href="{% url 'restaurants_detail' pk=shop.pk %}" class="link-dark card-link"> -->
                     <div class="card h-100">
                         <div class="row g-0">
                             <div class="col-md-4">

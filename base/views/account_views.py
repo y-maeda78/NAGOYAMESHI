@@ -7,6 +7,7 @@ from base.forms import CustomUserCreationForm, UserUpdateForm
 from django.contrib import messages
 from django.urls import reverse_lazy # 追加
 from base.forms import EmailAuthenticationForm,CustomUserCreationForm, UserUpdateForm
+from django.views.generic import TemplateView # 追加
 
 User = get_user_model()
 
@@ -84,7 +85,7 @@ class AccountUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
     template_name = 'pages/account_edit.html'
-    success_url = reverse_lazy('account')
+    success_url = reverse_lazy('account_detail')
     success_message = 'アカウント情報を更新しました。'
  
     def get_object(self):
@@ -96,3 +97,25 @@ class AccountUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         self.kwargs['pk'] = self.request.user.pk
         return super().get_object()
 """
+
+
+# マイページビュー
+class MyPageView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/account_mypage.html'
+
+
+# 会員情報確認ビュー (UserUpdateViewを読み取り専用として再利用)
+class AccountDetailView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = UserUpdateForm
+    template_name = 'pages/account_detail.html' # 修正後の会員情報確認テンプレート名
+    
+    # フォームを読み取り専用にする
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        for field in form.fields.values():
+            field.widget.attrs['readonly'] = 'readonly'
+        return form
+
+    def get_object(self):
+        return self.request.user
