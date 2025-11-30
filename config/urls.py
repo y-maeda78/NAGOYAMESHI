@@ -25,11 +25,16 @@ urlpatterns = [
     # トップページ
     path('', views.IndexListView.as_view(), name='index'),
 
+    # 店舗一覧
+    path('restaurants/', views.ShopListView.as_view(), name="restaurants"),
+
+    # 店舗詳細
+    path('restaurants/<int:pk>/', views.ShopDetailView.as_view(), name="detail"),
+
     # Account
-    path('login/', views.Login.as_view()),
-    path('logout/', LogoutView.as_view()),          # ただログアウトさせるだけなのでDjangoの標準機能を実装し、viewsの指定はなし
-    path('signup/', views.SignUpView.as_view()),
-    path('account/', views.AccountUpdateView.as_view()),
-    path('profile/', views.ProfileUpdateView.as_view()),
+    path('login/', views.Login.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),          # ただログアウトさせるだけなのでDjangoの標準機能を実装し、viewsの指定はなし
+    path('signup/', views.SignUpView.as_view(), name='signup'),
+    path('account/', views.AccountUpdateView.as_view(),name='account'),
 
 ]

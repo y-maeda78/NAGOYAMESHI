@@ -8,9 +8,13 @@ import os
 def create_id():
     return get_random_string(22)
 
+"""
+修正予定：vegeketで画像処理失敗したため削除したい
+"""
 def upload_image_to(instance, filename):
     Shop_id = instance.id
     return os.path.join('static', 'items', str(Shop_id), filename)
+
 
 
 """
@@ -22,6 +26,12 @@ class Category(models.Model):
     slug = models.CharField(max_length=32, unique=True, verbose_name='スラッグ') 
     def __str__(self):
         return self.name
+    
+    """
+    検索結果にて使用検討
+    def total(self):
+        return Shop.objects.filter(category=self.id).count()
+    """
 
 """
 タグ
@@ -75,6 +85,11 @@ class Shop(models.Model):   # Modelは、jangoのクラスで継承している
 
     # 画像
     image = models.ImageField(default="", blank=True, upload_to=upload_image_to)
+    """
+    修正案
+    image = models.ImageField(default='noImage.png', blank=True,  verbose_name='画像')
+    """
+
     # カテゴリー # ForeignKeyとon_delete=はセットで必須
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)    
     # タグ（中間フィールド）

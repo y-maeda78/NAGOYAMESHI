@@ -23,16 +23,14 @@
 
 <!-- search -->
 <div class="search bgbge">
-    <!-- <div class="container"> -->
-        <h2 class="search_ttl"><img src="assets/images/img_icon01.png" alt="">SEARCH</h2>
-        <span class="search_subttl">お店を探す</span>
-        <form method="GET" action="" class="user-search-box">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="店舗名・エリア・カテゴリ" name="keyword">
-                <button type="submit" class="btn search_btn shadow-sm">検索</button>
-            </div>
-        </form>
-    <!-- </div> -->
+    <h2 class="search_ttl"><img src="./static/assets/images/img_icon01.png" alt="">SEARCH</h2>
+    <span class="search_subttl">お店を探す</span>
+    <form method="GET" action="{% url 'restaurants' %}" class="user-search-box">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="店舗名・エリア・カテゴリ" name="keyword"  value="{{ request.GET.keyword }}">
+            <button type="submit" class="btn search_btn shadow-sm">検索</button>
+        </div>
+    </form>
 </div>
 
 <!-- category -->
@@ -42,7 +40,7 @@
         <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-1 mb-2">
             <div class="col">
-                <a href="restaurants?category_id=33" class="card-link">
+                <a href="{% url 'restaurants' %}?category_id=1" class="card-link">
                     <div class="card">
                         <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/don.jpg" class="card-img vertical-card-image" alt="丼物">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -52,7 +50,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=19" class="card-link">
+                <a href="{% url 'restaurants' %}?category_id=2" class="card-link">
                     <div class="card text-white">
                         <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/udon.jpg" class="card-img vertical-card-image" alt="うどん">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -62,7 +60,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=4" class="card-link">
+                <a href="{% url 'restaurants' %}?category_id=3" class="card-link">
                     <div class="card text-white">
                         <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/ramen.jpg" class="card-img vertical-card-image" alt="ラーメン">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -72,7 +70,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=27" class="card-link">
+                <a href="{% url 'restaurants' %}?category_id=4" class="card-link">
                     <div class="card text-white">
                         <img src="img_item04.jpg" class="card-img vertical-card-image" alt="味噌カツ">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -82,7 +80,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=32" class="card-link">
+                <a href="{% url 'restaurants' %}?category_id=5" class="card-link">
                     <div class="card text-white">
                         <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/fried.jpg" class="card-img vertical-card-image" alt="揚げ物">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -92,7 +90,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=26" class="card-link">
+                <a href="{% url 'restaurants' %}?category_id=6" class="card-link">
                     <div class="card text-white">
                         <img src="img_item06" class="card-img vertical-card-image" alt="モーニング">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -102,30 +100,13 @@
                 </a>
             </div>
         </div>
-
-        <div class="mb-5">
-            <a href="restaurants?category_id=1" class="btn item_btn">味噌煮込みうどん</a>
-            <a href="restaurants?category_id=2" class="btn item_btn">えびふりゃー</a>
-            <a href="restaurants?category_id=3" class="btn item_btn">どて煮</a>
-            <a href="restaurants?category_id=5" class="btn item_btn">味噌おでん</a>
-            <a href="restaurants?category_id=6" class="btn item_btn">カレーうどん</a>
-            <a href="restaurants?category_id=7" class="btn item_btn">名古屋コーチン</a>
-            <a href="restaurants?category_id=8" class="btn item_btn">あんかけスパゲティ</a>
-            <a href="restaurants?category_id=9" class="btn item_btn">鉄板ナポリタン</a>
-            <a href="restaurants?category_id=10" class="btn item_btn">天むす</a>
-            <a href="restaurants?category_id=11" class="btn item_btn">ふぐ</a>
-            <a href="restaurants?category_id=12" class="btn item_btn">寿司</a>
-            <a href="restaurants?category_id=13" class="btn item_btn">居酒屋</a>
-            <a href="restaurants?category_id=14" class="btn item_btn">中華</a>
-            <a href="restaurants?category_id=15" class="btn item_btn">ステーキ・ハンバーグ</a>
-            <a href="restaurants?category_id=16" class="btn item_btn">ハンバーガー</a>
-            <a href="restaurants?category_id=17" class="btn item_btn">焼き鳥</a>
-            <a href="restaurants?category_id=18" class="btn item_btn">そば・うどん</a>
-            <a href="restaurants?category_id=20" class="btn item_btn">鉄板焼き</a>
-            <a href="restaurants?category_id=21" class="btn item_btn">スイーツ</a>
-            <a href="restaurants?category_id=22" class="btn item_btn">パン</a>
-            <a href="restaurants?category_id=23" class="btn item_btn">フレンチ</a>
-            <a href="restaurants?category_id=24" class="btn item_btn">イタリアン</a>
+            <!-- {% for category in categories %} -->
+            <a href="{% url 'restaurants' %}?category_id=7" class="btn item_btn">味噌煮込みうどん</a>
+            <a href="{% url 'restaurants' %}?category_id=8" class="btn item_btn">カレーうどん</a>
+            <a href="{% url 'restaurants' %}?category_id=9" class="btn item_btn">あんかけスパゲティ</a>
+            <a href="{% url 'restaurants' %}?category_id=10" class="btn item_btn">鉄板ナポリタン</a>
+            <a href="{% url 'restaurants' %}?category_id=11" class="btn item_btn">天むす</a>
+            <!-- {% endfor %} -->
         </div>
     </div>
 </section>
@@ -138,7 +119,7 @@
         <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-2 mb-2">
             <div class="col">
-                <a href="restaurants?category_id=33" class="card-link">
+                <a href="{% url 'restaurants' %}?tag_id=1" class="card-link">
                     <div class="card">
                         <img src="img_eria01.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -148,7 +129,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=19" class="card-link">
+                <a href="{% url 'restaurants' %}?tag_id=2" class="card-link">
                     <div class="card text-white">
                         <img src="img_eria02.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -158,7 +139,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=4" class="card-link">
+                <a href="{% url 'restaurants' %}?tag_id=3" class="card-link">
                     <div class="card text-white">
                         <img src="img_eria03.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -168,7 +149,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=27" class="card-link">
+                <a href="{% url 'restaurants' %}?tag_id=4" class="card-link">
                     <div class="card text-white">
                         <img src="img_eria04.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -178,7 +159,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=32" class="card-link">
+                <a href="{% url 'restaurants' %}?tag_id=5" class="card-link">
                     <div class="card text-white">
                         <img src="img_eria05.jpg" class="card-img vertical-card-image" >
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
@@ -188,7 +169,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="restaurants?category_id=26" class="card-link">
+                <a href="{% url 'restaurants' %}?tag_id=6" class="card-link">
                     <div class="card text-white">
                         <img src="img_eria06" class="card-img vertical-card-image">
                         <div class="card-img-overlay text-align-center d-flex justify-content-center align-items-center overlay-background">
@@ -200,22 +181,12 @@
         </div>
 
         <div class="item_link mb-5">
-            <a href="restaurants?category_id=1" class="item_btn">岡崎市</a>
-            <a href="restaurants?category_id=2" class="btn item_btn">鶴舞</a>
-            <a href="restaurants?category_id=3" class="btn item_btn">金山</a>
-            <a href="restaurants?category_id=5" class="btn item_btn">国際センター・円頓寺</a>
-            <a href="restaurants?category_id=6" class="btn item_btn">星ヶ丘・本郷</a>
-            <a href="restaurants?category_id=7" class="btn item_btn">今池・池下・千種</a>
-            <a href="restaurants?category_id=8" class="btn item_btn">犬山市</a>
-            <a href="restaurants?category_id=9" class="btn item_btn">豊橋市</a>
-            <a href="restaurants?category_id=10" class="btn item_btn">瀬戸市</a>
-            <a href="restaurants?category_id=11" class="btn item_btn">一宮市</a>
-            <a href="restaurants?category_id=12" class="btn item_btn">熱田区</a>
-            <a href="restaurants?category_id=13" class="btn item_btn">天白区</a>
-            <a href="restaurants?category_id=14" class="btn item_btn">緑区</a>
-            <a href="restaurants?category_id=16" class="btn item_btn">瑞穂区</a>
-            <a href="restaurants?category_id=15" class="btn item_btn">名古屋港水族館</a>
-            <a href="restaurants?category_id=17" class="btn item_btn">ナゴヤドーム</a>
+            <!-- {% for tag in tags %} -->
+            <a href="{% url 'restaurants' %}?tag_id=7" class="item_btn">岡崎市</a>
+            <a href="{% url 'restaurants' %}?tag_id=8" class="btn item_btn">鶴舞</a>
+            <a href="{% url 'restaurants' %}?tag_id=9" class="btn item_btn">金山</a>
+            <a href="{% url 'restaurants' %}?tag_id=10" class="btn item_btn">国際センター・円頓寺</a>
+            <!-- {% endfor %} -->
         </div>
     </div>
 </section>
@@ -231,102 +202,16 @@
                 {% include 'snippets/shop_box.html' %}
             </div>
             {% endfor %}
-            <!-- <div class="col">
-                <a href="restaurants/96" class="link-dark card-link">
-                    <div class="card h-100">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/burger.jpg" class="card-img-top vertical-card-image">
-                        <div class="card-body">
-                            <h3 class="card-title">NAGOYA BURGER 名駅店</h3>
-                            <div class="text-muted small mb-1">
-                                <div class="d-inline-block">
-                                    ハンバーガー
-                                </div>
-                            </div>
-                            <p class="card-text">
-                                <span class="star-rating me-1" data-rate="4.5"></span>
-                                4.6
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+
+            <!-- 
+            {% for shop in good_shops %}
+            {% if shop.stars_average >= 4 %}
             <div class="col">
-                <a href="restaurants/98" class="link-dark card-link">
-                    <div class="card h-100">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/yakiniku01.jpg" class="card-img-top vertical-card-image">
-                        <div class="card-body">
-                            <h3 class="card-title">大衆焼肉酒場 ホルモン屋 栄店</h3>
-                            <div class="text-muted small mb-1">
-                                <div class="d-inline-block">
-                                    焼肉
-                                </div>
-                                <div class="d-inline-block">
-                                    居酒屋
-                                </div>
-                            </div>
-                            <p class="card-text">
-                                <span class="star-rating me-1" data-rate="4"></span>
-                                4.14
-                            </p>
-                        </div>
-                    </div>
-                </a>
+                {% include 'snippets/shop_box.html' %}
             </div>
-            <div class="col">
-                <a href="/restaurants/46" class="link-dark card-link">
-                    <div class="card h-100">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/yakitori01.jpg" class="card-img-top vertical-card-image">
-                        <div class="card-body">
-                            <h3 class="card-title">炭火やきとり マメ</h3>
-                            <div class="text-muted small mb-1">
-                                <div class="d-inline-block">
-                                    焼き鳥
-                                </div>
-                            </div>
-                            <p class="card-text">
-                                <span class="star-rating me-1" data-rate="4"></span>
-                                4.17
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col">
-                <a href="restaurants/58" class="link-dark card-link">
-                    <div class="card h-100">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/dummy.jpg" class="card-img-top vertical-card-image">
-                        <div class="card-body">
-                            <h3 class="card-title">リッツィエーリ</h3>
-                            <div class="text-muted small mb-1">
-                                <div class="d-inline-block">
-                                    中華料理
-                                </div>
-                            </div>
-                            <p class="card-text">
-                                <span class="star-rating me-1" data-rate="4"></span>
-                                3.88
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col">
-                <a href="restaurants/72" class="link-dark card-link">
-                    <div class="card h-100">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/dummy.jpg" class="card-img-top vertical-card-image">
-                        <div class="card-body">
-                            <h3 class="card-title">ボパ</h3>
-                            <div class="text-muted small mb-1">
-                                <span>カテゴリ未設定</span>
-                            </div>
-                            <p class="card-text">
-                                <span class="star-rating me-1" data-rate="3.5"></span>
-                                3.7
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div> -->
+            {% endif %}
+            {% endfor %}
+            -->
         </div>
     </div>
 </section>

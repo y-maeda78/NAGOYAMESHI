@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<!-- ↓↓ main ↓↓ -->
+<nav class="" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb;">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">ホーム</a></li>
+        <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
+    </ol>
+</nav>
+
+<div class="search bgbge">
+    <h2 class="search_ttl"><img src="../static/assets/images/img_icon01.png" alt="">SEARCH</h2>
+    <span class="search_subttl">お店を探す</span>
+    <form method="GET" action="{% url 'restaurants' %}" class="user-search-box">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="店舗名・エリア・カテゴリ" name="keyword" value="{{ shop.GET.keyword }}">
+            <button type="submit" class="btn search_btn shadow-sm">検索</button>
+        </div>
+    </form>
+</div>
+
+<div class="container sec pb-5">
+
+    <div class="row justify-content-center">
+        <div class="col-xl-3 col-lg-4 col-md-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    カテゴリから探す
+                </div>
+                <div class="card-body">
+                    <form method="GET" action="{% url 'restaurants' %}" class="w-100">
+                        <div class="form-group mb-3">
+                            <select class="form-control form-select" name="category_id" required>
+                                <option value="" hidden>選択してください</option>
+                                <!-- 
+                                {% for category in categories %}
+                                {% if category.id == category_id %}
+                                <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                {% else %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                                -->
+                                <option value="" hidden>選択してください</option>
+                                <option value="1">ひつまぶし</option>
+                                <option value="2">きしめん</option>
+                                <option value="3">台湾ラーメン</option>
+                                <option value="4">味噌カツ</option>
+                                <option value="5">手羽先</option>
+                                <option value="6">モーニング</option>
+                                <option value="7">寿司</option>
+                                <option value="8">居酒屋</option>
+                                <option value="9">中華</option>
+                                <option value="10">ステーキ・ハンバーグ</option>
+                                <option value="11">ハンバーガー</option>
+                                <option value="12">焼き鳥</option>
+                                <option value="13">そば・うどん</option>
+                                <option value="14">鉄板焼き</option>
+                                <option value="15">スイーツ</option>
+                                <option value="16">パン</option>
+                                <option value="17">フレンチ</option>
+                                <option value="18">イタリアン</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn search_btn text-white shadow-sm w-100">検索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    エリアから探す
+                </div>
+                <div class="card-body">
+                    <form method="GET" action="{% url 'restaurants' %}" class="w-100">
+                        <div class="form-group mb-3">
+                            <select class="form-control form-select" name="price" required>
+                                <option value="" hidden>選択してください</option>
+                                <!-- 
+                                {% for tag in tags %}
+                                {% if tag.id == tag_id %}
+                                <option value="{{ tag.id }}" selected>{{ tag.name }}</option>
+                                {% else %}
+                                <option value="{{ tag.id }}">{{ tag.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                                -->
+                                <option value="a1">名古屋駅周辺</option>
+                                <option value="a2">栄</option>
+                                <option value="a3">大須・矢場町</option>
+                                <option value="a4">伏見・丸の内</option>
+                                <option value="a5">豊田</option>
+                                <option value="a6">セントレア空港</option>
+                                <option value="a7">岡崎市</option>
+                                <option value="a8">鶴舞</option>
+                                <option value="a9">金山</option>
+                                <option value="a10">国際センター・円頓寺</option>
+                                <option value="a11">星ヶ丘・本郷</option>
+                                <option value="a12">今池・池下・千種</option>
+                                <option value="a13">大山</option>
+                                <option value="a14">豊橋市</option>
+                                <option value="a15">瀬戸市</option>
+                                <option value="a16">一宮市</option>
+                                <option value="a17">熱田区</option>
+                                <option value="a18">天白区</option>
+                                <option value="a19">緑区</option>
+                                <option value="a20">瑞穂区</option>
+                                <option value="a21">名古屋港水族館</option>
+                                <option value="a22">ナゴヤドーム</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn search_btn text-white shadow-sm w-100">検索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex justify-content-between flex-wrap">
+                <p class="fs-5 mb-3">
+                    {{ shops|length }}件の店舗が見つかりました
+                    <span class="fs-6">
+                        <!-- （1～○件） -->
+                    </span>
+                </p>
+                
+            </div>
+
+            <!-- {% for shop in shops %} -->
+            <div class="mb-3">
+                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/107" class="link-dark card-link">
+                <!-- <a href="{% url 'detail' pk=shop.pk %}" class="link-dark card-link"> -->
+                    <div class="card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/washoku.jpg" class="card-img-top horizontal-card-image">
+                                <!-- <img src="{{ shop.img.url }}" class="card-img-top horizontal-card-image"> -->
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">割烹旬菜</h3>
+                                    <!-- <h3 class="card-title">{{ shop.name }}</h3> -->
+                                    <div class="col d-flex text-secondary">
+                                        <div>
+                                            和食
+                                            <!-- {{ shop.category.name }} -->
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <p class="mb-1">
+                                        <span class="star-rating me-1" data-rate="4"></span>
+                                        4（10件）
+                                        <!-- <span class="star-rating me-1" data-rate="{{ shop.data_rate }}"></span> -->
+                                        <!-- {{ shop.stars_average }}（{{ shop.review_count }}件） -->
+                                    </p>
+
+                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
+                                    <!-- <p class="card-text">{{ shop.detail|linebreaksbr }}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+
+<!-- 削除 ここから↓ -->
+            <div class="mb-3">
+                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/106" class="link-dark card-link">
+                    <div class="card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/yakitori02.jpg" class="card-img-top horizontal-card-image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">炭火串焼コケッコ屋 半田店</h3>
+                                    <div class="col d-flex text-secondary">
+                                        <div>
+                                            焼き鳥
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <p class="mb-1">
+                                        <span class="star-rating me-1" data-rate="0"></span>
+                                        0（0件）
+                                    </p>
+                                    <div class="mb-1">
+                                        <span>1,500円～5,000円</span>
+                                    </div>
+                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="mb-3">
+                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/105" class="link-dark card-link">
+                    <div class="card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/yakiniku02.jpg" class="card-img-top horizontal-card-image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">ちょもちょもらんま</h3>
+                                    <div class="col d-flex text-secondary">
+                                        <div>
+                                            焼肉
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <p class="mb-1">
+                                        <span class="star-rating me-1" data-rate="0"></span>
+                                        0（0件）
+                                    </p>
+                                    <div class="mb-1">
+                                        <span>6,500円～8,500円</span>
+                                    </div>
+                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="mb-3">
+                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/104" class="link-dark card-link">
+                    <div class="card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/oden.jpg" class="card-img-top horizontal-card-image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">割烹 加藤</h3>
+                                    <div class="col d-flex text-secondary">
+                                        <div>
+                                            和食
+                                        </div>
+                                        <div>
+                                            、おでん
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <p class="mb-1">
+                                        <span class="star-rating me-1" data-rate="0"></span>
+                                        0（0件）
+                                    </p>
+                                    <div class="mb-1">
+                                        <span>1,000円～4,000円</span>
+                                    </div>
+                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="mb-3">
+                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/103" class="link-dark card-link">
+                    <div class="card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/ramen02.jpg" class="card-img-top horizontal-card-image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">台湾ラーメン 田中 守山本店</h3>
+                                    <div class="col d-flex text-secondary">
+                                        <div>
+                                            ラーメン
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <p class="mb-1">
+                                        <span class="star-rating me-1" data-rate="0"></span>
+                                        0（0件）
+                                    </p>
+                                    <div class="mb-1">
+                                        <span>1,000円～2,000円</span>
+                                    </div>
+                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+<!-- 削除 ここまで↑ -->
+
+<!-- ページネーション 後回し -->
+<!-- 
+            <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+
+                        <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+                            <span class="page-link" aria-hidden="true">‹‹</span>
+                        </li>
+
+                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=2">2</a></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=3">3</a></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=4">4</a></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=5">5</a></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=6">6</a></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=7">7</a></li>
+                        <li class="page-item"><a class="page-link" href="/restaurants?page=8">8</a></li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="/restaurants?page=2" rel="next" aria-label="Next »">››</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+ -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
