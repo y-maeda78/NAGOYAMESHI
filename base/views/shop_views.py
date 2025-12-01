@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from base.models import Shop, Category, Tag
+from base.models import Shop, Category, Tag, Favorite
 from django.db.models import Avg, Q, Count
+from django.shortcuts import get_object_or_404, redirect
 
 class IndexListView(ListView):
     model = Shop
@@ -11,6 +12,18 @@ class IndexListView(ListView):
 class ShopDetailView(DetailView):
     model = Shop
     template_name = 'pages/restaurants_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_obj = self.request.user
+        shop = get_object_or_404(Shop, pk=self.kwargs['pk'])
+        if user_obj.is_authenticated:
+            context['favorites'] = Favorite.objects.filter(user=self.request.user, shop=shop).count()
+        else:
+            context['favorites'] = 0
+
+        return context
+
 
 
 # 検索した際に表示する店舗一覧ページ

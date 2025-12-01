@@ -15,4 +15,4 @@ class Favorite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='作成日')
 
     def __str__(self):
-        return f"{self.user.name} (登録店舗：{self.shop.name})"
+        return f"{self.user.username} (登録店舗：{self.shop.name})"

@@ -184,6 +184,15 @@
     opacity: 1;
 }
 
+.item_bgbr {
+    color: #fff; 
+    background-color: var(--cl-brown);
+    border-radius: 0.25rem; 
+    padding: 0.2rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
 .star-rating {
   position: relative;
   z-index: 0;

@@ -36,6 +36,12 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),          # ただログアウトさせるだけなのでDjangoの標準機能を実装し、viewsの指定はなし
     path('signup/', views.SignUpView.as_view(), name='signup'),
     path('mypage/', views.MyPageView.as_view(), name='mypage'),
-    path('account/detail/', views.AccountDetailView.as_view(), name='account_detail'),
-    path('account/edit/', views.AccountUpdateView.as_view(), name='account_edit'),
+    path('mypage/account/', views.AccountDetailView.as_view(), name='account_detail'),
+    path('mypage/account/edit/', views.AccountUpdateView.as_view(), name='account_edit'),
+
+    # favorite
+    path('mypage/favorites/', views.FavoritesView.as_view(), name='favorites'),
+    path('mypage/favorites/<int:pk>/', views.FavoriteToggleView.as_view(), name='favorites_toggle01'),
+    path('mypage/favorites/<int:pk>#favarite', views.FavoriteToggleView.as_view(), name='favorites_toggle02'),
+    path('mypage/favorites/<int:pk>/delete/', views.FavoriteToggleView.as_view(), name='favorites_delete'),
 ]
