@@ -21,7 +21,7 @@ def upload_image_to(instance, filename):
 カテゴリー
 """
 class Category(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
+    # id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=32, verbose_name='カテゴリー名')
     slug = models.CharField(max_length=32, unique=True, verbose_name='スラッグ') 
     def __str__(self):
@@ -37,7 +37,7 @@ class Category(models.Model):
 タグ
 """
 class Tag(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
+    # id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=32, verbose_name='タグ名')
     slug = models.CharField(max_length=32, unique=True, verbose_name='スラッグ') 
     def __str__(self):

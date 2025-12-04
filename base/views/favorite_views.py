@@ -3,6 +3,7 @@ from django.views.generic import ListView, TemplateView, DetailView, RedirectVie
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from base.models import Shop, Favorite
+from django.db.models import Avg, Count # Avg
 
 class FavoritesView(LoginRequiredMixin, ListView):
     model = Favorite
@@ -15,6 +16,18 @@ class FavoritesView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # 該当店舗の平均評価と件数をテンプレートに渡す処理
+        favorites_list = context['favorites']
+        for favorite in favorites_list:
+            shop = favorite.shop
+            review_stats = shop.reviews.all().aggregate(
+                average_rating=Avg('stars'), 
+                review_count=Count('id') 
+            )
+            shop.average_rating = review_stats['average_rating']
+            shop.review_count = review_stats['review_count']
+
         return context
 
 

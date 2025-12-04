@@ -17,10 +17,9 @@
         <h1 class="mt-5 mb-2 text-center">{{ shop.name }}</h1>
         <!-- 2. ★評価 -->
         <p class="text-center mb-2">
-            <span class="star-rating" data-rate="5"></span>
-            5（1件）
+            <span class="star-rating" data-rate="{{ average_rating|floatformat:1 }}"></span>
+            {{ average_rating|floatformat:1 }}（{{ review_count }}件）
         </p>
-
     <div class="row justify-content-center">
         <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
                 <!-- 3. 上部アクションブロック: 予約と♡アイコンのみ -->
@@ -68,10 +67,10 @@
     <!-- 5. タブ切り替え「店舗情報」「レビュー」 -->
     <ul class="nav nav-tabs" id="detailTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link bg-light active" href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/107/reservations/create">店舗情報</a>
+            <a class="nav-link bg-light active" href="{% url 'restaurants_detail' pk=shop.pk %}">店舗情報</a>
         </li>
         <li class="nav-item " role="presentation">
-            <a class="nav-link border" href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/107/reviews">レビュー</a>
+            <a class="nav-link border" href="{% url 'reviews' pk=shop.pk %}">レビュー</a>
         </li>
     </ul>
 

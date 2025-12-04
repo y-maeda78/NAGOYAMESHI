@@ -39,6 +39,7 @@
         <h2 class="text-center mb-1">カテゴリから探す</h2>
         <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-1 mb-2">
+            <!-- ここに条件式追加？ -->
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?category_id=1" class="card-link">
                     <div class="card">
@@ -100,13 +101,13 @@
                 </a>
             </div>
         </div>
-            <!-- {% for category in categories %} -->
-            <a href="{% url 'restaurants_list' %}?category_id=7" class="btn item_btn">味噌煮込みうどん</a>
-            <a href="{% url 'restaurants_list' %}?category_id=8" class="btn item_btn">カレーうどん</a>
-            <a href="{% url 'restaurants_list' %}?category_id=9" class="btn item_btn">あんかけスパゲティ</a>
-            <a href="{% url 'restaurants_list' %}?category_id=10" class="btn item_btn">鉄板ナポリタン</a>
-            <a href="{% url 'restaurants_list' %}?category_id=11" class="btn item_btn">天むす</a>
-            <!-- {% endfor %} -->
+
+        <div class="item_link mb-5">
+        {% for category in categories %}
+            {% if forloop.counter > 6 %}
+            <a href="{% url 'restaurants_list' %}?category_id={{ category.id }}" class="btn item_btn">{{ category.name }}</a>
+            {% endif %}
+        {% endfor %}
         </div>
     </div>
 </section>
@@ -181,12 +182,11 @@
         </div>
 
         <div class="item_link mb-5">
-            <!-- {% for tag in tags %} -->
-            <a href="{% url 'restaurants_list' %}?tag_id=7" class="item_btn">岡崎市</a>
-            <a href="{% url 'restaurants_list' %}?tag_id=8" class="btn item_btn">鶴舞</a>
-            <a href="{% url 'restaurants_list' %}?tag_id=9" class="btn item_btn">金山</a>
-            <a href="{% url 'restaurants_list' %}?tag_id=10" class="btn item_btn">国際センター・円頓寺</a>
-            <!-- {% endfor %} -->
+            {% for tag in tags %}
+                {% if forloop.counter > 6 %}            
+            <a href="{% url 'restaurants_list' %}?tag_id={{ tag.id }}" class="item_btn">{{ tag.name }}</a>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -194,7 +194,7 @@
 <section class="popular sec">
     <div class="wrap">
 
-        <h2 class="mb-1 text-center">人気のお店</h2>
+        <h2 class="mb-1 text-center">新規掲載店舗</h2>
         <hr class="mb-4 mx-auto" style="border-top: 3px dotted #bfb9aa;width: 70px;">
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-3 mb-5">
             {% for object in object_list %}

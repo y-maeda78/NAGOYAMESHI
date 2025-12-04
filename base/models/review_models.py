@@ -7,10 +7,10 @@ from django.contrib.auth import get_user_model
 class Review(models.Model):
     RATING = (
         (1, '★'),
-        (2, '★★'),
-        (3, '★★★'),
-        (4, '★★★★'),
-        (5, '★★★★★'),
+        (2, '★'),
+        (3, '★'),
+        (4, '★'),
+        (5, '★'),
     )
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, verbose_name='レビューユーザー')
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE, related_name='reviews', verbose_name='レビュー店舗')
@@ -21,7 +21,7 @@ class Review(models.Model):
     # 内容
     comment = models.TextField(default='', blank=True, verbose_name='コメント')
 
-    # 作成・更新日時
+    # 作成日
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='作成日')
 
     def __str__(self):

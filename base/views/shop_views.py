@@ -8,6 +8,26 @@ class IndexListView(ListView):
     model = Shop
     template_name = 'pages/index.html'
 
+    # レビューの評価値取得のために
+    # object_list の代わりに shop_list を使う
+    context_object_name = 'shop_list'
+    def get_queryset(self):
+        queryset = super().get_queryset().annotate(
+            average_rating=Avg('reviews__stars'), 
+            review_count=Count('reviews') 
+        ).order_by('-id') 
+        
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # テンプレートに全てのカテゴリとタグの全リストを渡す
+        context['categories'] = Category.objects.all().order_by('id')
+        context['tags'] = Tag.objects.all().order_by('id')
+        
+        return context
+
 # 詳細ページ
 class ShopDetailView(DetailView):
     model = Shop
@@ -22,6 +42,14 @@ class ShopDetailView(DetailView):
         else:
             context['favorites'] = 0
 
+        # レビュー評価の平均値をテンプレートに渡す
+        review_stats = shop.reviews.all().aggregate(
+            average_rating=Avg('stars'), 
+            review_count=Count('id') 
+        )
+        context['average_rating'] = review_stats['average_rating']
+        context['review_count'] = review_stats['review_count']
+
         return context
 
 
@@ -31,22 +59,30 @@ class ShopListView(ListView):
     model = Shop
     template_name = 'pages/restaurants_list.html'
     # ordering = 'created_at' #新規掲載順
-    paginate_by = 10   # 1ページにいくつ表示するか
+    # paginate_by = 10   # 1ページにいくつ表示するか
 
-    """
-    # vegeket参考
     def get_queryset(self):
-        self.category = Category.objects.get(slug=self.kwargs['pk'])
-        return Item.objects.filter(
-        is_published=True, category=self.category)    # is_published=True：公開されているものだけを表示
-
+        return super().get_queryset().annotate(
+                    average_rating=Avg('reviews__stars'),
+                    review_count=Count('reviews')
+                )
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = f"カテゴリー： #{self.category.name}"
+        context['shops'] = context['object_list']
+
+        # self.get_context_data_keyword_search(context)
+        # self.get_context_data_category_search(context)
+        # self.get_context_data_tag_search(context) # タグ検索もあれば実行
+        # self.get_context_data_price_search(context)
+        # self.get_context_data_sort_order(context)
+        
+        context['categories'] = Category.objects.all()
+        context['tags'] = Tag.objects.all()
+        context['prices'] = range(500, 10001, 500)
+        
         return context
-    """
-
-
+"""
     # キーワード検索
     def get_context_data_keyword_search(self, context):  
         keyword = self.request.GET.get('keyword')
@@ -59,7 +95,7 @@ class ShopListView(ListView):
             
                 query &= Q(category__name__contains=word) | Q(detail__contains=word) | Q(name__contains=word) | Q(address__contains=word)
             
-            context['shops'] = Shop.objects.filter(query)
+            context['shops'] = context['shops'].filter(query)
 
     # カテゴリ検索
     def get_context_data_category_search(self, context):        
@@ -67,15 +103,17 @@ class ShopListView(ListView):
         category_id = self.request.GET.get('category_id')
         if category_id is not None and not '':
             context['category_id'] = int(category_id)
-            context['shops'] = Shop.objects.filter(Q(category__id=category_id) | Q(category2__id=category_id) | Q(category3__id=category_id))
+            category_query = Q(category__id=category_id) | Q(category2__id=category_id) | Q(category3__id=category_id)
+            context['shops'] = context['shops'].filter(category_query)
 
     # タグ検索
     def get_context_data_tag_search(self, context):
-        context['tags'] = tag.objects.all()
+        context['tags'] = Tag.objects.all()
         tag_id = self.request.GET.get('tag_id')
         if tag_id is not None and not '':
             context['tag_id'] = int(tag_id)
-            context['shops'] = Shop.objects.filter(Q(tag__id=category_id) | Q(tag2__id=category_id) | Q(tag3__id=category_id))
+            tag_query = Q(tag__id=tag_id) | Q(tag2__id=tag_id) | Q(tag3__id=tag_id)
+            context['shops'] = context['shops'].filter(tag_query)
 
     # 料金検索
     def get_context_data_price_search(self, context):        
@@ -119,3 +157,4 @@ class ShopListView(ListView):
         
         return context
 
+"""

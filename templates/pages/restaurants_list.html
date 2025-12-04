@@ -131,36 +131,30 @@
                 
             </div>
 
-            <!-- {% for shop in shops %} -->
+            {% for shop in shops %}
             <div class="mb-3">
-                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/107" class="link-dark card-link">
-                <!-- <a href="{% url 'restaurants_detail' pk=shop.pk %}" class="link-dark card-link"> -->
+                <a href="{% url 'restaurants_detail' pk=shop.pk %}" class="link-dark card-link">
                     <div class="card h-100">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/washoku.jpg" class="card-img-top horizontal-card-image">
-                                <!-- <img src="{{ shop.img.url }}" class="card-img-top horizontal-card-image"> -->
-                            </div>
+                                <img src="{{ shop.img }}" class="card-img-top horizontal-card-image">                            </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h3 class="card-title">割烹旬菜</h3>
-                                    <!-- <h3 class="card-title">{{ shop.name }}</h3> -->
-                                    <div class="col d-flex text-secondary">
-                                        <div>
-                                            和食
-                                            <!-- {{ shop.category.name }} -->
-                                        </div>
-                                    </div>
+                                    <h3 class="card-title">{{ shop.name }}</h3>
                                     <hr class="my-2">
                                     <p class="mb-1">
-                                        <span class="star-rating me-1" data-rate="4"></span>
-                                        4（10件）
-                                        <!-- <span class="star-rating me-1" data-rate="{{ shop.data_rate }}"></span> -->
-                                        <!-- {{ shop.stars_average }}（{{ shop.review_count }}件） -->
+                                        <span class="star-rating me-1" data-rate="{{ shop.average_rating|floatformat:1 }}"></span>
+                                        {{ shop.average_rating|floatformat:1 }}（{{ shop.review_count }}件）
                                     </p>
 
-                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
-                                    <!-- <p class="card-text">{{ shop.detail|linebreaksbr }}</p> -->
+                                    <p class="card-text">{{ shop.description|linebreaksbr }}</p>
+                                    <div class="flex mb-4">
+                                        <span class="item_bgbr  me-2">#{{ shop.category.name }}</span>
+                                        
+                                        {% for tag in shop.tags.all %}
+                                        <span class="item_bgbr  me-2">#{{ tag.name }}</span>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -168,136 +162,6 @@
                 </a>
             </div>
             {% endfor %}
-
-<!-- 削除 ここから↓ -->
-            <div class="mb-3">
-                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/106" class="link-dark card-link">
-                    <div class="card h-100">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/yakitori02.jpg" class="card-img-top horizontal-card-image">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h3 class="card-title">炭火串焼コケッコ屋 半田店</h3>
-                                    <div class="col d-flex text-secondary">
-                                        <div>
-                                            焼き鳥
-                                        </div>
-                                    </div>
-                                    <hr class="my-2">
-                                    <p class="mb-1">
-                                        <span class="star-rating me-1" data-rate="0"></span>
-                                        0（0件）
-                                    </p>
-                                    <div class="mb-1">
-                                        <span>1,500円～5,000円</span>
-                                    </div>
-                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="mb-3">
-                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/105" class="link-dark card-link">
-                    <div class="card h-100">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/yakiniku02.jpg" class="card-img-top horizontal-card-image">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h3 class="card-title">ちょもちょもらんま</h3>
-                                    <div class="col d-flex text-secondary">
-                                        <div>
-                                            焼肉
-                                        </div>
-                                    </div>
-                                    <hr class="my-2">
-                                    <p class="mb-1">
-                                        <span class="star-rating me-1" data-rate="0"></span>
-                                        0（0件）
-                                    </p>
-                                    <div class="mb-1">
-                                        <span>6,500円～8,500円</span>
-                                    </div>
-                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="mb-3">
-                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/104" class="link-dark card-link">
-                    <div class="card h-100">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/oden.jpg" class="card-img-top horizontal-card-image">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h3 class="card-title">割烹 加藤</h3>
-                                    <div class="col d-flex text-secondary">
-                                        <div>
-                                            和食
-                                        </div>
-                                        <div>
-                                            、おでん
-                                        </div>
-                                    </div>
-                                    <hr class="my-2">
-                                    <p class="mb-1">
-                                        <span class="star-rating me-1" data-rate="0"></span>
-                                        0（0件）
-                                    </p>
-                                    <div class="mb-1">
-                                        <span>1,000円～4,000円</span>
-                                    </div>
-                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="mb-3">
-                <a href="https://nagoyameshi-pattern-1.herokuapp.com/restaurants/103" class="link-dark card-link">
-                    <div class="card h-100">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://nagoyameshi-pattern-1.herokuapp.com/storage/restaurants/ramen02.jpg" class="card-img-top horizontal-card-image">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h3 class="card-title">台湾ラーメン 田中 守山本店</h3>
-                                    <div class="col d-flex text-secondary">
-                                        <div>
-                                            ラーメン
-                                        </div>
-                                    </div>
-                                    <hr class="my-2">
-                                    <p class="mb-1">
-                                        <span class="star-rating me-1" data-rate="0"></span>
-                                        0（0件）
-                                    </p>
-                                    <div class="mb-1">
-                                        <span>1,000円～2,000円</span>
-                                    </div>
-                                    <p class="card-text">名古屋老舗のお店。老舗の味をご堪能ください。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-<!-- 削除 ここまで↑ -->
 
 <!-- ページネーション 後回し -->
 <!-- 

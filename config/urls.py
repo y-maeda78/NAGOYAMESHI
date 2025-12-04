@@ -44,4 +44,9 @@ urlpatterns = [
     path('mypage/favorites/<int:pk>/', views.FavoriteToggleView.as_view(), name='favorites_toggle01'),
     path('mypage/favorites/<int:pk>#favarite', views.FavoriteToggleView.as_view(), name='favorites_toggle02'),
     path('mypage/favorites/<int:pk>/delete/', views.FavoriteToggleView.as_view(), name='favorites_delete'),
+
+    # review
+    path('restaurants/<int:pk>/reviews/', views.ShopReviewView.as_view(), name='reviews'),
+    path('restaurants/<int:pk>/reviews/create/', views.ShopReviewCreateView.as_view(), name='review_create'),
+    path('restaurants/<int:shop_pk>/reviews/<int:review_pk>/delete/', views.ShopReviewDeleteView.as_view(), name='review_delete'),
 ]
