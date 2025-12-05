@@ -41,9 +41,9 @@
         <div class="row row-cols-xl-6 row-cols-md-3 row-cols-2 g-1 mb-2">
             <!-- ここに条件式追加？ -->
             <div class="col">
-                <a href="{% url 'restaurants_list' %}?category_id=1" class="card-link">
+                <a href="{% url 'restaurants_list' %}?category_id=101" class="card-link">
                     <div class="card">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/don.jpg" class="card-img vertical-card-image" alt="丼物">
+                        <img src="./static/assets/images/category_hutumabushi.jpg" class="card-img vertical-card-image" alt="ひつまぶし">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">ひつまぶし</h5>
                         </div>
@@ -51,9 +51,9 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{% url 'restaurants_list' %}?category_id=2" class="card-link">
+                <a href="{% url 'restaurants_list' %}?category_id=102" class="card-link">
                     <div class="card text-white">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/udon.jpg" class="card-img vertical-card-image" alt="うどん">
+                        <img src="./static/assets/images/category_kishimen.jpg" class="card-img vertical-card-image" alt="きしめん">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">きしめん</h5>
                         </div>
@@ -61,9 +61,9 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{% url 'restaurants_list' %}?category_id=3" class="card-link">
+                <a href="{% url 'restaurants_list' %}?category_id=103" class="card-link">
                     <div class="card text-white">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/ramen.jpg" class="card-img vertical-card-image" alt="ラーメン">
+                        <img src="./static/assets/images/category_ramen.jpg" class="card-img vertical-card-image" alt="ラーメン">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">台湾ラーメン</h5>
                         </div>
@@ -71,9 +71,9 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{% url 'restaurants_list' %}?category_id=4" class="card-link">
+                <a href="{% url 'restaurants_list' %}?category_id=104" class="card-link">
                     <div class="card text-white">
-                        <img src="img_item04.jpg" class="card-img vertical-card-image" alt="味噌カツ">
+                        <img src="./static/assets/images/category_misokatu.jpg" class="card-img vertical-card-image" alt="味噌カツ">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">味噌カツ</h5>
                         </div>
@@ -81,9 +81,9 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{% url 'restaurants_list' %}?category_id=5" class="card-link">
+                <a href="{% url 'restaurants_list' %}?category_id=105" class="card-link">
                     <div class="card text-white">
-                        <img src="https://nagoyameshi-pattern-1.herokuapp.com/images/fried.jpg" class="card-img vertical-card-image" alt="揚げ物">
+                        <img src="./static/assets/images/category_teba.jpg" class="card-img vertical-card-image" alt="手羽先">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">手羽先</h5>
                         </div>
@@ -91,9 +91,9 @@
                 </a>
             </div>
             <div class="col">
-                <a href="{% url 'restaurants_list' %}?category_id=6" class="card-link">
+                <a href="{% url 'restaurants_list' %}?category_id=106" class="card-link">
                     <div class="card text-white">
-                        <img src="img_item06" class="card-img vertical-card-image" alt="モーニング">
+                        <img src="./static/assets/images/category_morning.jpg" class="card-img vertical-card-image" alt="モーニング">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">モーニング</h5>
                         </div>
@@ -104,7 +104,8 @@
 
         <div class="item_link mb-5">
         {% for category in categories %}
-            {% if forloop.counter > 6 %}
+            <!-- 表示したくないカテゴリーIDは指定する -->
+            {% if category.id != 101 and category.id != 102 and category.id != 103 and category.id != 104 and category.id != 105 and category.id != 106 %}
             <a href="{% url 'restaurants_list' %}?category_id={{ category.id }}" class="btn item_btn">{{ category.name }}</a>
             {% endif %}
         {% endfor %}
@@ -122,7 +123,7 @@
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?tag_id=1" class="card-link">
                     <div class="card">
-                        <img src="img_eria01.jpg" class="card-img vertical-card-image">
+                        <img src="./static/assets/images/area_nagoyastation.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title text-center">名古屋駅<br>周辺</h5>
                         </div>
@@ -132,7 +133,7 @@
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?tag_id=2" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria02.jpg" class="card-img vertical-card-image">
+                        <img src="./static/assets/images/area_sakae.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">栄</h5>
                         </div>
@@ -142,7 +143,7 @@
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?tag_id=3" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria03.jpg" class="card-img vertical-card-image">
+                        <img src="./static/assets/images/area_osu.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">大須・矢場町</h5>
                         </div>
@@ -152,7 +153,7 @@
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?tag_id=4" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria04.jpg" class="card-img vertical-card-image">
+                        <img src="./static/assets/images/area_fushimi.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">伏見・丸の内</h5>
                         </div>
@@ -162,7 +163,7 @@
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?tag_id=5" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria05.jpg" class="card-img vertical-card-image" >
+                        <img src="./static/assets/images/area_toyota.jpg" class="card-img vertical-card-image" >
                         <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title">豊田</h5>
                         </div>
@@ -172,7 +173,7 @@
             <div class="col">
                 <a href="{% url 'restaurants_list' %}?tag_id=6" class="card-link">
                     <div class="card text-white">
-                        <img src="img_eria06" class="card-img vertical-card-image">
+                        <img src="./static/assets/images/area_centrair.jpg" class="card-img vertical-card-image">
                         <div class="card-img-overlay text-align-center d-flex justify-content-center align-items-center overlay-background">
                             <h3 class="card-title text-center">セントレア<br>空港</h5>
                         </div>

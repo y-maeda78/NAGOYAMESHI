@@ -18,6 +18,8 @@ from django.urls import path
 from base import views
 from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,3 +52,7 @@ urlpatterns = [
     path('restaurants/<int:pk>/reviews/create/', views.ShopReviewCreateView.as_view(), name='review_create'),
     path('restaurants/<int:shop_pk>/reviews/<int:review_pk>/delete/', views.ShopReviewDeleteView.as_view(), name='review_delete'),
 ]
+
+# 画像の設定
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

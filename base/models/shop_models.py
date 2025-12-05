@@ -9,12 +9,10 @@ def create_id():
     return get_random_string(22)
 
 """
-修正予定：vegeketで画像処理失敗したため削除したい
+修正予定：vegeketで画像処理失敗したため調整必要？
 """
 def upload_image_to(instance, filename):
-    Shop_id = instance.id
-    return os.path.join('static', 'items', str(Shop_id), filename)
-
+    return f'{instance.id}/{filename}'
 
 
 """
@@ -69,7 +67,7 @@ class Regular_holidays(models.Model):
 店舗情報
 """
 class Shop(models.Model):   # Modelは、jangoのクラスで継承している
-    id = models.CharField(default=create_id, primary_key=True, max_length=50, editable=False)
+    # id = models.CharField(default=create_id, primary_key=True, max_length=50, editable=False)
     name = models.CharField(max_length=50, verbose_name='店名')
     mail = models.CharField(default='', blank=True, max_length=255, verbose_name='メールアドレス')
     zipcode = models.CharField(default='', blank=True, max_length=8, verbose_name='郵便番号')
@@ -80,15 +78,13 @@ class Shop(models.Model):   # Modelは、jangoのクラスで継承している
     seating_capacity = models.TextField(default='', blank=True, verbose_name='席数')
     opening_hours = models.TextField(default='', blank=True, verbose_name='営業時間・ラストオーダーの案内')
     holiday = models.TextField(default='', blank=True, verbose_name='定休日の案内')
-    reserve_start_time = models.TimeField(default='', blank=True, verbose_name='予約開始時間')
-    reserve_end_time = models.TimeField(default='', blank=True, verbose_name='予約終了時間')
+    reserve_start_time = models.TimeField(default=None, blank=True, verbose_name='予約開始時間')
+    reserve_end_time = models.TimeField(default=None, blank=True, verbose_name='予約終了時間')
 
     # 画像
-    image = models.ImageField(default="", blank=True, upload_to=upload_image_to)
-    """
-    修正案
-    image = models.ImageField(default='noImage.png', blank=True,  verbose_name='画像')
-    """
+    image = models.ImageField(default='noImage.png', blank=True, upload_to=upload_image_to,  verbose_name='画像')
+    # image = models.ImageField(default='noImage.png', blank=True,  verbose_name='画像')
+
 
     # カテゴリー # ForeignKeyとon_delete=はセットで必須
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)    

@@ -144,6 +144,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 追記
 
+MEDIA_URL = '/media/' # 追記
+MEDIA_ROOT = BASE_DIR / 'media_local' # 追記
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

@@ -1,6 +1,6 @@
 <a href="/restaurants/{{ object.pk }}" class="link-dark card-link">
 <div class="card h-100">
-    <img src="/{{ object.image }}" class="card-img-top vertical-card-image">
+    <img src="{{ object.image.url }}" class="card-img-top vertical-card-image">
     <div class="card-body">
         <h3 class="card-title">{{ object.name }}</h3>
         <div class="text-muted small mb-1">
