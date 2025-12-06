@@ -54,9 +54,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # 'cloudinary_storage', # 追記
-    # 'cloudinary', # 追記
+    'django.contrib.staticfiles', # 追記
+    'cloudinary_storage', # 追記
+    'cloudinary', # 追記
     'base', # 追記
 ]
 
@@ -147,11 +147,18 @@ STATICFILES_DIRS = [BASE_DIR / 'static']    # 追記
 MEDIA_URL = '/media/' # 追記
 MEDIA_ROOT = BASE_DIR / 'media_local' # 追記
 
+# 画像の設定
+CLOUDINARY_STORAGE  = {
+    'CLOUD_NAME':'hemwtd6fe',
+    'API_KEY':'483294333586792',
+    'API_SECRET':'vY66_uIsMx2bt8p_BMKetPWtMAk'
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイのみ追加
 
 # massages  # 追記
 MESSAGE_TAGS = { # 指定したtagによってクラスを追加して装飾を分ける

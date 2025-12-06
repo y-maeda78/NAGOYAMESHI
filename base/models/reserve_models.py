@@ -13,11 +13,14 @@ def custom_timestamp_id():
 class Reserve(models.Model):
     id = models.CharField(default=custom_timestamp_id,
                         editable=False, primary_key=True, max_length=50)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='ユーザー')
-    shop = models.ForeignKey('Shop', on_delete=models.CASCADE, verbose_name='店舗')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='予約ユーザー')
+    shop = models.ForeignKey('Shop', on_delete=models.CASCADE, verbose_name='予約店舗')
 
-    # 予約日時
-    reserved_time = models.DateTimeField(verbose_name='予約日時')
+    # 予約日
+    reserved_date = models.DateField(verbose_name='予約日')
+
+    # 予約時間
+    reserved_time = models.TimeField(verbose_name='予約日時')
     
     # 予約人数
     number_of_people = models.PositiveSmallIntegerField(verbose_name='予約人数')
@@ -27,4 +30,4 @@ class Reserve(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id
+        return f'{self.shop.name} - {self.reserved_date} {self.reserved_time} ({self.user.username})'

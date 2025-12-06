@@ -20,6 +20,7 @@ from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from base.views import reserve_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,6 +52,12 @@ urlpatterns = [
     path('restaurants/<int:pk>/reviews/', views.ShopReviewView.as_view(), name='reviews'),
     path('restaurants/<int:pk>/reviews/create/', views.ShopReviewCreateView.as_view(), name='review_create'),
     path('restaurants/<int:shop_pk>/reviews/<int:review_pk>/delete/', views.ShopReviewDeleteView.as_view(), name='review_delete'),
+
+    # reserve
+    path('restaurants/<int:pk>/reserve/', views.ReserveCreateView.as_view(), name='reserve'),
+    path('mypage/reservations/', views.ReserveListView.as_view(), name='reserve_list'),
+    path('reserve/<str:pk>/delete/', views.ReserveDeleteView.as_view(), name='reserve_delete'),
+
 ]
 
 # 画像の設定

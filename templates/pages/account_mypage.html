@@ -39,7 +39,7 @@
                     </a>
                     
                     <!-- 4. 予約一覧 -->
-                    <a href="/reservations" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <a href="{% url 'reserve_list' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         予約一覧
                         <span class="text-muted">></span>
                     </a>
@@ -51,13 +51,9 @@
                         有料会員を退会する
                     </a>
 
-                    <!-- 6. ログアウト (ボタンで表現) -->
-                    <form method="POST" action="/logout">
-                        <input type="hidden" name="_token" value="tjB5W1PEOhN7XNpbP52F7OIXJsWGo2woB3SLVgaz">
-                        <button type="submit" class="btn btn-outline-secondary w-100 shadow-sm">
-                            ログアウト
-                        </button>
-                    </form>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-secondary w-100 shadow-sm">
+                        ログアウト
+                    </a>
                 </div>
             </div>
 

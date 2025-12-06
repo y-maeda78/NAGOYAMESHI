@@ -21,6 +21,7 @@
         <span class="star-rating" data-rate="5"></span>
         5（1件）
     </p>
+    
     <ul class="nav nav-tabs" id="detailTabs" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link border" href="{% url 'restaurants_detail' pk=shop.pk %}">店舗情報</a>
@@ -75,7 +76,7 @@
 
                     <!-- ボタン-->
                     <div class="d-flex justify-content-center gap-3 mt-5">
-                        <a href="/restaurants/103" class="btn btn-outline-secondary shadow-sm" style="width: 150px;margin-right: 1rem;">キャンセル</a>
+                        <a href="{% url 'reviews' pk=shop.pk %}" class="btn btn-outline-secondary shadow-sm" style="width: 150px;margin-right: 1rem;">キャンセル</a>
                         
                         <button type="submit" class="btn shadow-sm" style="width: 150px; color: #fff; background-color: #A9894B;">
                             投稿する

@@ -21,16 +21,41 @@
         <span class="star-rating" data-rate="{{ average_rating|floatformat:1 }}"></span>
         {{ average_rating|floatformat:1 }}（{{ review_count }}件）
     </p>
+    <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
+            <div class="p-3 mb-4 row g-2 align-items-center">
+                <!-- 予約ボタン -->
+                <div class="col-10">
+                    <a href="{% url 'reserve' pk=shop.pk %}" class="btn shadow-sm w-100" style="width: 70%; background-color: #A9894B;color: #fff;">
+                        今すぐ予約する
+                    </a>
+                </div>
+                <!-- お気に入りアイコン -->
+                
+                <div class="col-2 text-center">
+                    {% if favorites == 0 %}
+                    <form action="{% url 'favorites_toggle01' pk=shop.pk %}" method="post" class="d-flex justify-content-center">
+                        <input type="hidden" name="_token" value="tjB5W1PEOhN7XNpbP52F7OIXJsWGo2woB3SLVgaz">
+                            {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger rounded-circle shadow-sm" title="お気に入り登録" style="width: 50px; height: 50px; padding: 0; min-width: 50px;">
+                            <span style="font-size: 1.5rem;">♥</span>
+                        </button>
+                    </form>
+                    {% else %}                      
+                    <form action="{% url 'favorites_toggle01' pk=shop.pk %}" method="post" class="d-flex justify-content-center">
+                        <input type="hidden" name="_token" value="tjB5W1PEOhN7XNpbP52F7OIXJsWGo2woB3SLVgaz">
+                            {% csrf_token %}
+                        <button type="submit" class="btn btn-danger rounded-circle shadow-sm" title="お気に入り解除" style="width: 50px; height: 50px; padding: 0; min-width: 50px;">
+                            <span style="font-size: 1.5rem;">♥</span>
+                        </button>                            
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
 
-    <!-- レビュー投稿ボタン -->
-    <!-- レビューを投稿済みでなければ表示する 有料プラン登録判定は後で実装 -->
-    {% if user.is_paymentstatus and not is_reviewed %}
-    <div class="text-center mt-4 mb-3">
-        <a href="{% url 'review_create' pk=shop.pk %}" class="btn btn-lg btn-custom-brown shadow-lg w-100" style="max-width: 300px;background-color: #A9894B;color: #fff;">
-            レビューを投稿する
-        </a>
+        </div>
     </div>
-    {% endif %}
+
 
     <ul class="nav nav-tabs" id="detailTabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -41,16 +66,27 @@
         </li>
     </ul>
 
-    <!-- 無料会員の場合 -->
-    {% if not user.is_paymentstatus %}
-    <div class="text-center mt-5">
-        <p>レビューを全件表示するには<a href="/">有料プランへの登録</a>が必要です。</p>
-    </div>
-    {% endif %}
+    <div class="tab-content border border-top-0 p-3 mb-3" id="detailTabsContent">
+
+        <!-- 無料会員の場合 -->
+        {% if not user.is_paymentstatus %}
+        <div class="text-center mt-5">
+            <p>レビューを全件表示するには<a href="/">有料プランへの登録</a>が必要です。</p>
+        </div>
+        {% endif %}
+
+        <!-- レビュー投稿ボタン -->
+        <!-- レビューを投稿済みでなければ表示する 有料プラン登録判定は後で実装 -->
+        {% if user.is_paymentstatus and not is_reviewed %}
+        <div class="text-center my-3">
+            <a href="{% url 'review_create' pk=shop.pk %}" class="btn btn-custom-brown shadow-lg w-100" style="max-width: 300px;background-color: #4C3725;color: #fff;">
+                レビューを投稿する
+            </a>
+        </div>
+        {% endif %}
 
     <!-- レビュー一覧 -->
     {% if user.is_paymentstatus %}
-    <div class="tab-content border border-top-0 p-3 mb-3" id="detailTabsContent">
         <div id="review-list">
             
             <!-- レビュー：自分の評価 -->
@@ -99,7 +135,7 @@
             </div>
             {% empty %}
                 {% if not my_review %}
-                <p class="text-center text-muted">まだレビューはありません。</p>
+                <p class="text-center text-muted my-4">まだレビューはありません。</p>
                 {% endif %}
             {% endfor %}
             

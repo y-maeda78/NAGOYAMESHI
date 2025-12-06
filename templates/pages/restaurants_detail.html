@@ -26,7 +26,7 @@
                 <div class="p-3 mb-4 row g-2 align-items-center">
                     <!-- 予約ボタン -->
                     <div class="col-10">
-                        <a href="/restaurants/103/reservations/create" class="btn shadow-sm w-100" style="width: 70%; background-color: #A9894B;color: #fff;">
+                        <a href="{% url 'reserve' pk=shop.pk %}" class="btn shadow-sm w-100" style="width: 70%; background-color: #A9894B;color: #fff;">
                             今すぐ予約する
                         </a>
                     </div>
@@ -169,7 +169,7 @@
                 <div class="mb-5">
                     <!-- 予約ボタン -->
                     <div class="text-center ">
-                        <a href="/restaurants/103/reservations/create" class="btn shadow-sm w-100" style="background-color: #A9894B;color: #fff;">
+                        <a href="{% url 'reserve' pk=shop.pk %}" class="btn shadow-sm w-100" style="background-color: #A9894B;color: #fff;">
                             予約する
                         </a>
                     </div>

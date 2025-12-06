@@ -3,7 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm 
 from django.contrib.auth.forms import AuthenticationForm # 追加：認証するため
 # from django.contrib.auth.forms import PasswordChangeForm # パスワード変更専用
-from base.models import Review
+from base.models import Review, Reserve
+from datetime import datetime, timedelta, time
  
 User = get_user_model()
 
@@ -93,3 +94,58 @@ class ReviewForm(forms.ModelForm):
             'stars': '評価',
             'comment': 'コメント',
         }
+
+# 予約用のフォーム
+class ReserveForm(forms.ModelForm):
+    # 予約日
+    reserved_date = forms.DateField(
+        label='予約日',
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+    )
+
+    # 時間 
+    reserved_time = forms.TimeField(
+        label='予約時間',
+        widget=forms.Select(attrs={'class': 'form-select'}), 
+    )
+
+    # 予約人数
+    number_of_people = forms.IntegerField(
+        label='人数',
+        widget=forms.Select(attrs={'class': 'form-select'}),
+    )
+
+    class Meta:
+        model = Reserve
+        fields = ('reserved_date', 'reserved_time', 'number_of_people')
+
+    def __init__(self, *args, **kwargs):
+        shop = kwargs.pop('shop', None)
+        super().__init__(*args, **kwargs)
+
+        # 人数の選択肢: 1名から10名まで
+        people_choices = [(i, f'{i}名') for i in range(1, 11)]
+        self.fields['number_of_people'].widget.choices = [('', '選択してください')] + people_choices
+
+        # 予約時間の選択肢
+        if shop and shop.reserve_start_time and shop.reserve_end_time:
+            time_choices = [('', '選択してください')]
+            start_time = datetime.combine(datetime.today().date(), shop.reserve_start_time)
+            end_time = datetime.combine(datetime.today().date(), shop.reserve_end_time)
+            
+            current_time = start_time
+            # 30分間隔で選択肢を生成
+            while current_time <= end_time:
+                # 'HH:MM' 形式で値と表示名を設定
+                time_str = current_time.strftime('%H:%M')
+                time_choices.append((time_str, time_str))
+                # 30分追加
+                current_time += timedelta(minutes=30) 
+            
+            self.fields['reserved_time'].widget.choices = time_choices
+
+        # Bootstrapのスタイルを適用する処理
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+            if field.required:
+                field.widget.attrs['required'] = 'required'
