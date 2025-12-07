@@ -141,7 +141,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 追記
 
 MEDIA_URL = '/media/' # 追記
@@ -184,3 +184,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/logout/'
  
 LOGOUT_REDIRECT_URL = '/login/'
+
+
+# 追加 STRIPEのAPI
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PRICE_ID = os.environ.get('STRIPE_PRICE_ID')

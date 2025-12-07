@@ -90,7 +90,7 @@ a {
 
 /* 訪問済みリンクの色変化をなくす */
 a:visited {
-  color: inherit;
+  color: none;
 }
 
 /* ホバー時・フォーカス時のスタイル */

@@ -1,11 +1,11 @@
 from django.views.generic import DetailView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from base.models import Shop, Review
 from base.forms import ReviewForm # 追加：作成したフォームをインポート
 from django.db.models import Avg, Count
-from django.http import Http404, HttpResponseForbidden
+from base.mixins import PaymentstatusRequiredMixin
 
 # レビュー一覧
 class ShopReviewView(LoginRequiredMixin, DetailView):
@@ -50,7 +50,7 @@ class ShopReviewView(LoginRequiredMixin, DetailView):
             
 
 # レビューの作成
-class ShopReviewCreateView(LoginRequiredMixin, CreateView):
+class ShopReviewCreateView(LoginRequiredMixin, PaymentstatusRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = "pages/reviews_create.html"

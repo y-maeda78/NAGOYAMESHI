@@ -1,5 +1,5 @@
 """
-注文履歴モデルを定義
+決済履歴モデルを定義
 """
 
 from django.db import models
@@ -11,7 +11,7 @@ def custom_timestamp_id():
     dt = datetime.datetime.now()
     return dt.strftime('%Y%m%d%H%M%S%f')
  
-# 注文履歴のモデル 
+# 決済履歴のモデル 
 class Order(models.Model):
     # 注文ID
     id = models.CharField(default=custom_timestamp_id,

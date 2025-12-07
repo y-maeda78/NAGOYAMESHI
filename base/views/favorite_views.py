@@ -4,8 +4,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from base.models import Shop, Favorite
 from django.db.models import Avg, Count # Avg
+from base.mixins import PaymentstatusRequiredMixin
 
-class FavoritesView(LoginRequiredMixin, ListView):
+class FavoritesView(LoginRequiredMixin, PaymentstatusRequiredMixin, ListView):
     model = Favorite
     template_name = "pages/favorites.html"
     context_object_name = 'favorites'
@@ -32,7 +33,7 @@ class FavoritesView(LoginRequiredMixin, ListView):
 
 
 # お気に入りの登録 or 解除を切り替える
-class FavoriteToggleView(LoginRequiredMixin, RedirectView):
+class FavoriteToggleView(LoginRequiredMixin, PaymentstatusRequiredMixin, RedirectView):
     http_method_names = ['post']
 
     def get_redirect_url(self, *args, **kwargs):

@@ -54,6 +54,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    stripe_customer_id = models.CharField(default='',max_length=255, blank=True)
+    stripe_subscription_id = models.CharField(default='',max_length=255, blank=True)
+    stripe_card_name = models.CharField(default='',max_length=255, blank=True)
+    stripe_setup_intent = models.CharField(default='',max_length=255, blank=True)
+    stripe_card_no = models.CharField(default='',max_length=20, blank=True)
+    stripe_card_brand = models.CharField(default='',max_length=20, blank=True)
+
     objects = UserManager()
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'

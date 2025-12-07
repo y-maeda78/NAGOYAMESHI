@@ -4,7 +4,7 @@
 
 <!-- ↓↓ main ↓↓ -->
 
-<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+<nav class="mb-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}">HOME</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'restaurants_list' %}">店舗一覧</a></li>
@@ -68,13 +68,6 @@
 
     <div class="tab-content border border-top-0 p-3 mb-3" id="detailTabsContent">
 
-        <!-- 無料会員の場合 -->
-        {% if not user.is_paymentstatus %}
-        <div class="text-center mt-5 alert alert-secondary">
-            レビューを表示するには <a href="/" style="color: dodgerblue;">有料プランへの登録</a> が必要です。
-        </div>
-        {% endif %}
-
         <!-- レビュー投稿ボタン -->
         <!-- レビューを投稿済みでなければ表示する 有料プラン登録判定は後で実装 -->
         {% if user.is_paymentstatus and not is_reviewed %}
@@ -84,6 +77,32 @@
             </a>
         </div>
         {% endif %}
+
+                <!-- 無料会員の場合 -->
+        {% if not user.is_paymentstatus %}
+            <div class="text-center my-3 alert alert-secondary">
+                レビューを表示するには <a href="{% url 'subscription' %}" style="color: dodgerblue;">有料プランへの登録</a> が必要です。
+            </div>
+            {% for review in other_reviews|slice:":3" %}
+                <div class="card py-2 px-3 mb-3 shadow-sm border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="d-flex align-items-center">
+                            <p class="fw-bold mb-0 text-dark">{{ review.user.username }}</p>
+                            <p class="ml-3 mb-0 small text-muted">{{ review.created_at|date:"Y/m/d" }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-0">
+                        <span class="star-rating" data-rate="{{ review.stars|floatformat:1 }}"></span>
+                        <span class="ml-1 text-secondary">({{ review.stars }})</span>
+                    </div>
+                    
+                    <p class="mb-1 text-body" style="filter: blur(4px);overflow: hidden;">{{ review.comment|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+
 
     <!-- レビュー一覧 -->
     {% if user.is_paymentstatus %}

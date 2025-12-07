@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm # 追加：認証する
 # from django.contrib.auth.forms import PasswordChangeForm # パスワード変更専用
 from base.models import Review, Reserve
 from datetime import datetime, timedelta, time
+from django.core.exceptions import ValidationError
+from django.utils import timezone
  
 User = get_user_model()
 
@@ -154,3 +156,34 @@ class ReserveForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             if field.required:
                 field.widget.attrs['required'] = 'required'
+
+
+    def clean(self):
+        """
+        予約日時が過去になっていないかチェックする。
+        """
+        cleaned_data = super().clean()
+        
+        # フォームから予約日と予約時刻を取得 (フィールド名は reserved_date, reserved_time)
+        reserve_date = cleaned_data.get('reserved_date')
+        reserve_time = cleaned_data.get('reserved_time')
+        
+        # 日付と時刻の両方が存在する場合のみチェックを実行
+        if reserve_date and reserve_time:
+            # 1. 日付と時刻を結合して datetime オブジェクトを作成
+            # 2. timezone.make_aware() で設定済みのタイムゾーン情報 (JSTなど) を付与
+            reservation_datetime = timezone.make_aware(
+                datetime.combine(reserve_date, reserve_time)
+            )
+            
+            # 現在の時刻（タイムゾーン情報付き）を取得
+            now = timezone.now()
+            
+            # 予約日時が現在時刻以下（過去または現在）でないかチェック
+            # 予約が確定した瞬間より過去の時間はすべて無効にする
+            if reservation_datetime <= now:
+                raise forms.ValidationError(
+                    "過去の日時を選択することはできません。現在時刻よりも後の日時を選択してください。"
+                )
+            
+        return cleaned_data

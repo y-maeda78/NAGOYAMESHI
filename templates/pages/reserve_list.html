@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
+{% load tz %}
 {% block main %}
 
-<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+<nav class="mb-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="{% url 'index' %}">HOME</a></li>
         <li class="breadcrumb-item"><a href="{% url 'mypage' %}">マイページ</a></li> 
@@ -24,9 +24,15 @@
                                 <a href="{% url 'restaurants_detail' pk=reservation.shop.pk %}" class="text-decoration-none">
                                     <h4 class="card-title-custom" style="font-weight: bold;color: #A9894B;">{{ reservation.shop.name }}</h4>
                                 </a>
-                                <div class="ms-3 btn btn-sm btn-outline-danger">
-                                    <a href="{% url 'reserve_delete' pk=reservation.pk %}">キャンセルする</a>
-                                </div>
+                                {% if today < reservation.reserved_date %}
+                                    <div class="ms-3 btn btn-sm btn-outline-danger">
+                                        <a href="{% url 'reserve_delete' pk=reservation.pk %}">キャンセルする</a>
+                                    </div>
+                                {% else %}
+                                    <div class="ms-3 btn btn-sm btn-secondary disabled">
+                                        来店済み
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                         

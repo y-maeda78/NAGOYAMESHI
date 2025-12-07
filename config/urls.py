@@ -58,6 +58,27 @@ urlpatterns = [
     path('mypage/reservations/', views.ReserveListView.as_view(), name='reserve_list'),
     path('reserve/<str:pk>/delete/', views.ReserveDeleteView.as_view(), name='reserve_delete'),
 
+    # pay
+    # 有料会員の登録
+    path('subscription/', views.SubscriptionView.as_view(), name="subscription"),
+
+    # カード情報の登録成功
+    path('subscription/success/', views.SubscriptionSuccess, name='subscription_success'),
+
+    # カード情報の失敗
+    path('subscription/cancel/', views.SubscriptionCancel, name='subscription_cancel'),
+
+    path('subscription/config/', views.stripe_config, name='stripe_config'),
+    path('subscription/create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
+
+    # カード情報の変更
+    # path('subscription/payment/', views.SubscriptionEditView.as_view(), name="subscription_edit"),
+    # path('subscription/payment_save/', views.subscription_Edit_save, name="subscription_edit_save"),
+
+    # 有料会員の退会
+    path('subscription/cancellation/', views.CancellationView.as_view(), name="subscription_cancellation"),
+    path('subscription_cancellation_save/', views.subscription_cancellation_save, name="subscription_cancellation_save"),
+
 ]
 
 # 画像の設定

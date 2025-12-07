@@ -8,9 +8,11 @@ from django.shortcuts import get_object_or_404, redirect
 from django.db.models import Avg, Count
 from django.contrib import messages
 from django.views.generic import DeleteView
+from base.mixins import PaymentstatusRequiredMixin
+from django.utils import timezone
 
 # 予約作成ビュー
-class ReserveCreateView(LoginRequiredMixin, CreateView):
+class ReserveCreateView(LoginRequiredMixin, PaymentstatusRequiredMixin, CreateView):
     model = Reserve
     form_class = ReserveForm
     template_name = 'pages/reserve_create.html'
@@ -61,7 +63,7 @@ class ReserveCreateView(LoginRequiredMixin, CreateView):
     
     # フォームにエラーがあった場合
     def form_invalid(self, form):
-        messages.error(self.request, '予約内容に誤りがあります。入力内容を確認してください。')
+        # messages.error(self.request, '予約内容に誤りがあります。入力内容を確認してください。') # フォーム内でエラー表示のため
         return super().form_invalid(form)
 
     def get_success_url(self):
@@ -70,7 +72,7 @@ class ReserveCreateView(LoginRequiredMixin, CreateView):
 
 
 # 予約一覧のビュー
-class ReserveListView(LoginRequiredMixin, ListView):
+class ReserveListView(LoginRequiredMixin, PaymentstatusRequiredMixin, ListView):
     model = Reserve
     template_name = 'pages/reserve_list.html'
     context_object_name = 'reservations'
@@ -80,6 +82,7 @@ class ReserveListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['reservations'] = Reserve.objects.filter(user=self.request.user).order_by('-reserved_date') 
         context['today'] = date.today() 
+        context['now'] = timezone.now()
 
         return context
     

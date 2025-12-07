@@ -47,7 +47,7 @@
                     <!-- 無料会員の場合 -->
                     <!-- 5. 有料会員の登録 -->
                     {% if not user.is_paymentstatus %}                    
-                    <a href="{% url 'reserve_list' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <a href="{% url 'subscription' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         有料プランの登録
                         <span class="text-muted">></span>
                     </a>
@@ -57,7 +57,7 @@
                 <!-- 5. 有料会員を退会する (目立つボタンで表現) -->
                 <div class="card-body border-top">
                     {% if user.is_paymentstatus and not is_reviewed %}
-                    <a href="/subscription/cancel" class="btn btn-outline-danger w-100 mb-3 shadow-sm">
+                    <a href="{% url 'subscription_cancellation' %}" class="btn btn-outline-danger w-100 mb-3 shadow-sm">
                         有料会員を退会する
                     </a>
                     {% endif %}
