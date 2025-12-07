@@ -17,6 +17,7 @@
         <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
             <h1 class="mb-4 text-center">お気に入り一覧</h1>        
 
+            {% if favorites %}
             {% for favorite in favorites %}
             <div class="mb-3">
                 <a href="{% url 'restaurants_detail' pk=favorite.shop.pk %}" class="link-dark card-link">
@@ -57,7 +58,11 @@
                 </a>
             </div>
             {% endfor %}
-
+            {% else %}
+                <div class="alert alert-secondary text-center mt-5" role="alert">
+                    現在、登録されているお気に入りはありません。
+                </div>
+            {% endif %}
             <!-- ページネーション -->
              <!-- 
             <nav class="d-flex justify-content-center">

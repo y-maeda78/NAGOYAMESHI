@@ -70,8 +70,8 @@
 
         <!-- 無料会員の場合 -->
         {% if not user.is_paymentstatus %}
-        <div class="text-center mt-5">
-            <p>レビューを全件表示するには<a href="/">有料プランへの登録</a>が必要です。</p>
+        <div class="text-center mt-5 alert alert-secondary">
+            レビューを表示するには <a href="/" style="color: dodgerblue;">有料プランへの登録</a> が必要です。
         </div>
         {% endif %}
 

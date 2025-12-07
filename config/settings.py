@@ -31,7 +31,7 @@ root = environ.Path(BASE_DIR / 'secrets')
 env.read_env(root('.env.dev'))
 
 # 追記 本番環境 ----
-#env.read_env(root('.env.prod'))
+env.read_env(root('.env.prod'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -157,8 +157,10 @@ CLOUDINARY_STORAGE  = {
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイのみ追加
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
+# DEFAULT_AUTO_FIELD = env.str('DEFAULT_AUTO_FIELD', default=None)
+# DEFAULT_FILE_STORAGE = env.str('DEFAULT_FILE_STORAGE', default=None)
 
 # massages  # 追記
 MESSAGE_TAGS = { # 指定したtagによってクラスを追加して装飾を分ける

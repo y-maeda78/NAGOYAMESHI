@@ -337,7 +337,6 @@
 }
 
 
-
 /* 選択された星とその前の星を金色にする */
 #id_stars div:has(input:checked) label {
   color: gold; 
@@ -364,3 +363,15 @@
   font-size: 0.75rem;
   margin-left: 8px;
 }
+
+
+
+/* ====================================
+    rserve
+==================================== */
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: #fff;
+  color: #495057;
+}
+

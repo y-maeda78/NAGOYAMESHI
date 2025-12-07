@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}予約{% endblock %}
 
 {% block main %}
 
@@ -103,6 +104,27 @@
 
     </div>
 </div>
+
+
+
 <!-- ↑↑ main ↑↑ -->
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    
+const dateInput = document.querySelector("#id_reserved_date");
+    flatpickr("#id_reserved_date", {
+        locale: "ja",
+        minDate: "today", 
+        dateFormat: "Y-m-d",
+    });
+
+    if (dateInput) {
+        dateInput.style.visibility = 'visible';
+        dateInput.style.opacity = '1';
+    }
+
+</script>
 {% endblock %}

@@ -100,19 +100,24 @@ class ReserveForm(forms.ModelForm):
     # 予約日
     reserved_date = forms.DateField(
         label='予約日',
-        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'id': 'id_reserved_date',
+            'placeholder': '選択してください。',
+            'class': 'form-control',
+            }),
     )
 
     # 時間 
     reserved_time = forms.TimeField(
         label='予約時間',
-        widget=forms.Select(attrs={'class': 'form-select'}), 
+        widget=forms.Select(attrs={'class': 'form-select bg-light'}), 
     )
 
     # 予約人数
     number_of_people = forms.IntegerField(
         label='人数',
-        widget=forms.Select(attrs={'class': 'form-select'}),
+        widget=forms.Select(attrs={'class': 'form-select bg-light'}),
     )
 
     class Meta:
