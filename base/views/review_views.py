@@ -59,6 +59,15 @@ class ShopReviewCreateView(LoginRequiredMixin, PaymentstatusRequiredMixin, Creat
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['shop'] = get_object_or_404(Shop, pk=self.kwargs.get('pk'))
+
+        # 平均値計算ロジック
+        review_stats = self.object.reviews.all().aggregate(
+            average_rating=Avg('stars'), 
+            review_count=Count('id') 
+        )
+        context['average_rating'] = review_stats['average_rating']
+        context['review_count'] = review_stats['review_count']
+        
         return context    
 
     def form_valid(self, form):
