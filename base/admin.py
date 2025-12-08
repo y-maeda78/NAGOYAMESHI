@@ -53,9 +53,14 @@ class CustomUserAdmin(BaseUserAdmin):
 
     # add_form = UserCreationForm
     add_form = CustomUserCreationForm # 修正：フォーム名変更のため
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'slug', ) 
+    prepopulated_fields = {'slug': ('name',)}
+
  
 # admin.site.register(Shop, ShopAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag)
 # admin.site.register(Weekday)
 # admin.site.register(Regular_holidays)
