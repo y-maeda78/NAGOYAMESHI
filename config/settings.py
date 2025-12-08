@@ -145,6 +145,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 追記
+STATIC_ROOT = BASE_DIR / 'staticfiles' # 追記
 
 MEDIA_URL = '/media/' # 追記
 MEDIA_ROOT = BASE_DIR / 'media_local' # 追記
@@ -159,8 +160,8 @@ CLOUDINARY_STORAGE  = {
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
 # DEFAULT_AUTO_FIELD = env.str('DEFAULT_AUTO_FIELD', default=None)
 # DEFAULT_FILE_STORAGE = env.str('DEFAULT_FILE_STORAGE', default=None)
 
