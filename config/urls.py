@@ -72,8 +72,8 @@ urlpatterns = [
     path('subscription/create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
 
     # カード情報の変更
-    # path('subscription/payment/', views.SubscriptionEditView.as_view(), name="subscription_edit"),
-    # path('subscription/payment_save/', views.subscription_Edit_save, name="subscription_edit_save"),
+    path('subscription/update/', views.SubscriptionUpdateView.as_view(), name="subscription_update"),
+    path('subscription/update_save/', views.subscription_update_save, name="subscription_update_save"),
 
     # 有料会員の退会
     path('subscription/cancellation/', views.CancellationView.as_view(), name="subscription_cancellation"),

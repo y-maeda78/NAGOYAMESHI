@@ -64,11 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkoutButton.textContent = '処理中...';
                 cardError.style.display = 'none';
                 
-                // Get Checkout Session ID
                 fetch("{% url 'create_checkout_session' %}")
-                    // Get result object 
                     .then((result) => { return result.json(); })
-                    // Get data object 
                     .then((data) => {
                         console.log(data);
                         

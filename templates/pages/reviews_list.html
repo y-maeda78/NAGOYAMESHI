@@ -14,9 +14,7 @@
 </nav>
 <div class="container pb-5">  
 
-    <!-- 1. 店名 -->
     <h1 class="mt-5 mb-2 text-center">{{ shop.name }}</h1>
-    <!-- 2. ★評価 -->
     <p class="text-center mb-2">
         <span class="star-rating" data-rate="{{ average_rating|floatformat:1 }}"></span>
         {{ average_rating|floatformat:1 }}（{{ review_count }}件）
@@ -69,7 +67,6 @@
     <div class="tab-content border border-top-0 p-3 mb-3" id="detailTabsContent">
 
         <!-- レビュー投稿ボタン -->
-        <!-- レビューを投稿済みでなければ表示する 有料プラン登録判定は後で実装 -->
         {% if user.is_paymentstatus and not is_reviewed %}
         <div class="text-center my-3">
             <a href="{% url 'review_create' pk=shop.pk %}" class="btn btn-custom-brown shadow-lg w-100" style="max-width: 300px;background-color: #4C3725;color: #fff;">
@@ -78,7 +75,7 @@
         </div>
         {% endif %}
 
-                <!-- 無料会員の場合 -->
+        <!-- 無料会員の場合 -->
         {% if not user.is_paymentstatus %}
             <div class="text-center my-3 alert alert-secondary">
                 レビューを表示するには <a href="{% url 'subscription' %}" style="color: dodgerblue;">有料プランへの登録</a> が必要です。
@@ -159,9 +156,9 @@
             {% endfor %}
             
             
-            <!-- ページネーション -->
+            <!-- ページネーション後日実装予定 -->
             <!--
-            <nav aria-label="レビューのページネーション">
+            <nav aria-label="">
                 <ul class="pagination justify-content-center mt-5">
                     <li class="page-item disabled"><a class="page-link" href="#">前へ</a></li>
                     <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>

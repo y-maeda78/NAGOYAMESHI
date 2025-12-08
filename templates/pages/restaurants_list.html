@@ -41,27 +41,6 @@
                                 <option value="{{ category.id }}">{{ category.name }}</option>
                                 {% endif %}
                                 {% endfor %}
-                                <!-- 
-                                <option value="1">ひつまぶし</option>
-                                <option value="2">きしめん</option>
-                                <option value="3">台湾ラーメン</option>
-                                <option value="4">味噌カツ</option>
-                                <option value="5">手羽先</option>
-                                <option value="6">モーニング</option>
-                                <option value="7">寿司</option>
-                                <option value="8">居酒屋</option>
-                                <option value="9">中華</option>
-                                <option value="10">ステーキ・ハンバーグ</option>
-                                <option value="11">ハンバーガー</option>
-                                <option value="12">焼き鳥</option>
-                                <option value="13">そば・うどん</option>
-                                <option value="14">鉄板焼き</option>
-                                <option value="15">スイーツ</option>
-                                <option value="16">パン</option>
-                                <option value="17">フレンチ</option>
-                                <option value="18">イタリアン</option>
-                                -->
-
                             </select>
                         </div>
                         <div class="form-group">
@@ -78,9 +57,9 @@
                 <div class="card-body">
                     <form method="GET" action="{% url 'restaurants_list' %}" class="w-100">
                         <div class="form-group mb-3">
-                            <select class="form-control form-select" name="price" required>
+                            <select class="form-control form-select" name="tag_id" required>
                                 <option value="" hidden>選択してください</option>
-                                <!-- 
+                                
                                 {% for tag in tags %}
                                 {% if tag.id == tag_id %}
                                 <option value="{{ tag.id }}" selected>{{ tag.name }}</option>
@@ -88,29 +67,7 @@
                                 <option value="{{ tag.id }}">{{ tag.name }}</option>
                                 {% endif %}
                                 {% endfor %}
-                                -->
-                                <option value="a1">名古屋駅周辺</option>
-                                <option value="a2">栄</option>
-                                <option value="a3">大須・矢場町</option>
-                                <option value="a4">伏見・丸の内</option>
-                                <option value="a5">豊田</option>
-                                <option value="a6">セントレア空港</option>
-                                <option value="a7">岡崎市</option>
-                                <option value="a8">鶴舞</option>
-                                <option value="a9">金山</option>
-                                <option value="a10">国際センター・円頓寺</option>
-                                <option value="a11">星ヶ丘・本郷</option>
-                                <option value="a12">今池・池下・千種</option>
-                                <option value="a13">大山</option>
-                                <option value="a14">豊橋市</option>
-                                <option value="a15">瀬戸市</option>
-                                <option value="a16">一宮市</option>
-                                <option value="a17">熱田区</option>
-                                <option value="a18">天白区</option>
-                                <option value="a19">緑区</option>
-                                <option value="a20">瑞穂区</option>
-                                <option value="a21">名古屋港水族館</option>
-                                <option value="a22">ナゴヤドーム</option>
+
                             </select>
                         </div>
                         <div class="form-group">
@@ -124,9 +81,6 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <p class="fs-5 mb-3">
                     {{ shops|length }}件の店舗が見つかりました
-                    <span class="fs-6">
-                        <!-- （1～○件） -->
-                    </span>
                 </p>
                 
             </div>
@@ -163,32 +117,8 @@
             </div>
             {% endfor %}
 
-<!-- ページネーション 後回し -->
-<!-- 
-            <div class="d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
+            <!-- ページネーション後日実装予定 -->
 
-                        <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-                            <span class="page-link" aria-hidden="true">‹‹</span>
-                        </li>
-
-                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=2">2</a></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=3">3</a></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=4">4</a></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=5">5</a></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=6">6</a></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=7">7</a></li>
-                        <li class="page-item"><a class="page-link" href="/restaurants?page=8">8</a></li>
-
-                        <li class="page-item">
-                            <a class="page-link" href="/restaurants?page=2" rel="next" aria-label="Next »">››</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
- -->
         </div>
     </div>
 </div>

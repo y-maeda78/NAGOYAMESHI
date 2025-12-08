@@ -123,7 +123,7 @@ def subscription_cancellation_save(request):
         user.is_paymentstatus = False
         user.stripe_customer_id = ''
         user.stripe_subscription_id = ''
-        user.stripe_subscription_id = ''
+        user.stripe_setup_intent = ''
         user.stripe_card_brand= ''
         user.stripe_card_name = ''
         user.stripe_card_no = ''
@@ -138,35 +138,65 @@ def subscription_cancellation_save(request):
         messages.error(request, f"解約処理中にエラーが発生しました: {e}")
         return redirect('mypage')
 
-"""
+
+# 支払方法変更ビュー
+class SubscriptionUpdateView(LoginRequiredMixin, PaymentstatusRequiredMixin, TemplateView):
+    template_name = "pages/payment_edit.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
 @require_POST
 @login_required
-def subscription_payment_save(request):
-    user = get_object_or_404(User, user=request.user)
-    user.stripe_card_name = request.POST['card_name']
-    user.stripe_card_no = request.POST['card_number'][-4:]
-    user.save()
-    messages.info(request, 'お支払方法を更新しました')
+def subscription_update_save(request):
+    user = get_object_or_404(get_user_model(), id=request.user.id)
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    
+    # 1. POSTデータから Payment Method ID を取得
+    payment_method_id = request.POST.get('payment_method_id')
+    card_name = request.POST.get('card_name')
 
-    return redirect('payment_edit')
+    if not user.stripe_customer_id:
+        messages.error(request, "お客様のStripe顧客情報が見つかりません。")
+        return redirect('subscription_update')
 
+    if not payment_method_id:
+        messages.error(request, "支払い情報の送信に失敗しました。再度お試しください。")
+        return redirect('subscription_update')
 
+    try:
+        # 2. 【Stripe処理】新しい支払い方法を顧客に関連付ける
+        stripe.PaymentMethod.attach(
+            payment_method_id,
+            customer=user.stripe_customer_id,
+        )
 
+        # 3. 【Stripe処理】サブスクリプションのデフォルト支払い方法を新しいものに更新する
+        # （注: Stripeの Payment Methodを顧客にアタッチすると、サブスクリプションのデフォルト支払い方法も自動的に新しいものに切り替わる場合が多いですが、ここでは明示的に更新します）
+        stripe.Subscription.modify(
+            user.stripe_subscription_id,
+            default_payment_method=payment_method_id,
+        )
 
-class SubscriptionView(LoginRequiredMixin, TemplateView):
-    template_name = "pages/subscription.html"
+        # 4. 【Stripe処理】新しい支払い方法の詳細情報を取得
+        pm = stripe.PaymentMethod.retrieve(payment_method_id)
 
-@require_POST
-@login_required
-def subscription_save(request):
-    user = get_object_or_404(User, user=request.user)
-    is_paymentstatus = True
-    user.card_name = request.POST['card_name']
-    user.card_no = request.POST['card_no']
-    user.save()
-    messages.info(request, '有料プランを登録しました')
+        # 5. 【DB更新】ユーザーモデルに最新のカード情報を保存
+        user.stripe_card_name = card_name # ユーザーが入力した名義人
+        user.stripe_card_brand = pm.card.brand
+        user.stripe_card_no = pm.card.last4
+        user.save()
 
-    return redirect('top')
-
-
-"""
+        messages.success(request, 'お支払方法を更新しました。')
+        return redirect('subscription_update')
+        
+    except stripe.error.CardError as e:
+        # カード情報に問題がある場合
+        messages.error(request, f"カード情報に誤りがあります: {e.user_message}")
+        return redirect('subscription_update')
+    
+    except Exception as e:
+        # その他のエラー
+        messages.error(request, f"更新処理中に予期せぬエラーが発生しました: {e}")
+        return redirect('subscription_update')

@@ -14,12 +14,10 @@
 </nav>
 <div class="container pb-5">  
 
-    <!-- 1. 店名 -->
     <h1 class="mt-5 mb-2 text-center">{{ shop.name }}</h1>
-    <!-- 2. ★評価 -->
     <p class="text-center mb-2">
-        <span class="star-rating" data-rate="5"></span>
-        5（1件）
+        <span class="star-rating" data-rate="{{ average_rating|floatformat:1 }}"></span>
+        {{ average_rating|floatformat:1 }}（{{ review_count }}件）
     </p>
     
     <ul class="nav nav-tabs" id="detailTabs" role="tablist">
@@ -68,13 +66,11 @@
                         </label>
                         {{ form.comment }}
 
-                        <!-- <textarea class="form-control" id="content" name="content" cols="30" rows="5" placeholder="お店の感想を具体的にご記入ください（1000文字まで）" required></textarea> -->
                         {% if form.comment.errors %}
                             <div class="text-danger small mt-2">{{ form.comment.errors }}</div>
                         {% endif %}
                     </div>
 
-                    <!-- ボタン-->
                     <div class="d-flex justify-content-center gap-3 mt-5">
                         <a href="{% url 'reviews' pk=shop.pk %}" class="btn btn-outline-secondary shadow-sm" style="width: 150px;margin-right: 1rem;">キャンセル</a>
                         

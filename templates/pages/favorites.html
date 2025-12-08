@@ -42,6 +42,7 @@
                                             <span class="item_bgbr">#{{ tag.name }}</span>
                                             {% endfor %}
                                         </p>
+
                                         <!-- お気に入り削除ボタン -->
                                         <form action="{% url 'favorites_delete' pk=favorite.shop.pk %}" method="post" name="FavoriteDeleteForm">
                                             {% csrf_token %}
@@ -50,6 +51,7 @@
                                                 削除
                                             </button>
                                         </form>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +65,8 @@
                     現在、登録されているお気に入りはありません。
                 </div>
             {% endif %}
-            <!-- ページネーション -->
+
+            <!-- ページネーション後日実装 -->
              <!-- 
             <nav class="d-flex justify-content-center">
                 <ul class="pagination">
