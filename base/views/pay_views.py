@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from base.models import User
+from base.models import User, Order
 from base.mixins import PaymentstatusRequiredMixin
 import stripe
 
@@ -64,6 +64,7 @@ def SubscriptionSuccess(request):
     try:
         session = stripe.checkout.Session.retrieve(session_id)
         user = get_object_or_404(User, id=request.user.id)
+
         user.is_paymentstatus = True
         user.stripe_customer_id = session['customer']
         user.stripe_subscription_id = session['subscription']
@@ -86,6 +87,26 @@ def SubscriptionSuccess(request):
         user.stripe_card_no = stripe_PaymentMethod.data[0].card.last4
 
         user.save()
+
+        # Stripeのオブジェクトを取得
+        subscription = stripe.Subscription.retrieve(session['subscription'])
+        price_id = subscription['items']['data'][0]['price']['id']
+        price = stripe.Price.retrieve(price_id)
+        MONTHLY_FEE = price['unit_amount']
+
+        TAX_RATE = 10   # 消費税率10%
+        price_without_tax = int(MONTHLY_FEE / (1 + (TAX_RATE / 100)))
+
+        # (消費税額) = (税込み価格) - (税抜価格)
+        tax_amount = MONTHLY_FEE - price_without_tax
+
+        # Orderモデルに情報を保存
+        Order.objects.create(
+            user=user,
+            is_confirmed=True,  # 決済成功済み
+            amount=MONTHLY_FEE, # 支払額
+            tax_included=tax_amount, # 消費税額
+        )
 
         messages.info(request, '有料プランに登録しました')
         return redirect('index')
@@ -166,23 +187,22 @@ def subscription_update_save(request):
         return redirect('subscription_update')
 
     try:
-        # 2. 【Stripe処理】新しい支払い方法を顧客に関連付ける
+        # 2. Stripe処理：新しい支払い方法を顧客に関連付ける
         stripe.PaymentMethod.attach(
             payment_method_id,
             customer=user.stripe_customer_id,
         )
 
-        # 3. 【Stripe処理】サブスクリプションのデフォルト支払い方法を新しいものに更新する
-        # （注: Stripeの Payment Methodを顧客にアタッチすると、サブスクリプションのデフォルト支払い方法も自動的に新しいものに切り替わる場合が多いですが、ここでは明示的に更新します）
+        # 3. Stripe処理：支払い方法を新しいものに更新する
         stripe.Subscription.modify(
             user.stripe_subscription_id,
             default_payment_method=payment_method_id,
         )
 
-        # 4. 【Stripe処理】新しい支払い方法の詳細情報を取得
+        # 4. Stripe処理：新しい支払い方法の詳細情報を取得
         pm = stripe.PaymentMethod.retrieve(payment_method_id)
 
-        # 5. 【DB更新】ユーザーモデルに最新のカード情報を保存
+        # 5. DB更新：ユーザーモデルに最新のカード情報を保存
         user.stripe_card_name = card_name # ユーザーが入力した名義人
         user.stripe_card_brand = pm.card.brand
         user.stripe_card_no = pm.card.last4

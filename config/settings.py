@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', # 追記
+    'django.contrib.humanize', # 追記
     'cloudinary_storage', # 追記
     'cloudinary', # 追記
     'base', # 追記
@@ -137,7 +138,7 @@ TIME_ZONE = 'Asia/Tokyo'    # 変更
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -160,8 +161,8 @@ CLOUDINARY_STORAGE  = {
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # HEROKUデプロイ時のみ追加
 # DEFAULT_AUTO_FIELD = env.str('DEFAULT_AUTO_FIELD', default=None)
 # DEFAULT_FILE_STORAGE = env.str('DEFAULT_FILE_STORAGE', default=None)
 

@@ -24,8 +24,6 @@ class Order(models.Model):
     amount = models.PositiveIntegerField(default=0)
     # 税額
     tax_included = models.PositiveIntegerField(default=0)
-    # キャンセル日付
-    canceled_at = models.DateTimeField(blank=True, null=True)
     # 管理者だけのメモ書き
     memo = models.TextField(default='', blank=True)
     

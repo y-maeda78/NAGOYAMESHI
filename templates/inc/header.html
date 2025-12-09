@@ -19,15 +19,33 @@
                         <p class="mb-0" style="padding:0.25rem 1.5rem 0; color: #8b8b8b; font-size: 0.75rem;">ようこそ、<a href="{% url 'mypage' %}" style="color: #A9894B; font-size: 1rem;">{{ user.username }}</a>さん</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'mypage' %}" style="border:1px solid #8b8b8b;border-radius: 0.3rem; font-size: 0.8rem; padding: 0.35rem 1rem;">マイページ</a>
-                    </li>
-                    {% else %}
+                        <a class="nav-link mr-1" href="{% url 'mypage' %}" style="border:1px solid #8b8b8b;border-radius: 0.3rem; font-size: 0.8rem; padding: 0.35rem 1rem;">マイページ</a>
+                    </li>                    
+                        {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'signup' %}">新規登録</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">ログイン</a>
                     </li>
+                    {% endif %}
+
+                    {% if user.is_admin %}              
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                管理画面
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'admin_summary' %}">売上集計</a>
+                                <a class="dropdown-item" href="{% url 'admin:base_user_changelist' %}" target="_blank">会員一覧</a>
+                                <a class="dropdown-item" href="{% url 'admin:base_shop_changelist' %}" target="_blank">店舗一覧</a>
+                                <a class="dropdown-item" href="{% url 'admin:base_category_changelist' %}" target="_blank">カテゴリ一覧</a>
+                                <a class="dropdown-item" href="{% url 'admin:base_tag_changelist' %}" target="_blank">カテゴリ一覧</a>
+                                <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">管理画面トップ</a>
+                            </div>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
