@@ -11,21 +11,19 @@ from base.models.shop_models import create_id
 # ユーザーモデル
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, username, password=None, 
-                    zipcode='', prefecture='', city='', 
-                    address1='', address2='', tel='', 
+    def create_user(self, email, username, password=None,                
                     **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
         user = self.model(
             username=username,
             email=self.normalize_email(email),
-            zipcode=extra_fields.get('zipcode', ''), 
-            prefecture=extra_fields.get('prefecture', ''),
-            city=extra_fields.get('city', ''),
-            address1=extra_fields.get('address1', ''),
-            address2=extra_fields.get('address2', ''),
-            tel=extra_fields.get('tel', ''),
+            zipcode=extra_fields.get('zipcode'), 
+            prefecture=extra_fields.get('prefecture'),
+            city=extra_fields.get('city'),
+            address1=extra_fields.get('address1'),
+            address2=extra_fields.get('address2'),
+            tel=extra_fields.get('tel'),
         )
         user.set_password(password)
         user.save(using=self._db)
