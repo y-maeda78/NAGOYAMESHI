@@ -58,11 +58,8 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
  
-# admin.site.register(Shop, ShopAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
-# admin.site.register(Weekday)
-# admin.site.register(Regular_holidays)
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.unregister(Group)

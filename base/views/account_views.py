@@ -61,7 +61,7 @@ class MyPageView(LoginRequiredMixin, TemplateView):
 class AccountDetailView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
-    template_name = 'pages/account_detail.html' # 修正後の会員情報確認テンプレート名
+    template_name = 'pages/account_detail.html'
     
     # フォームを読み取り専用にする
     def get_form(self, form_class=None):

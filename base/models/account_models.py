@@ -83,12 +83,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
     
     def has_perm(self, perm, obj=None):
-        # 指定されたパーミッションを持っているかどうか
-        # 管理者であれば全てのパーミッションを持つとする
         return self.is_admin 
 
     def has_module_perms(self, app_label):
-        # 指定されたアプリのモジュールパーミッションを持っているかどうか
-        # 管理者であれば全てのモジュールのパーミッションを持つとする
         return self.is_admin
 
