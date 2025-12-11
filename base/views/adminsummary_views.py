@@ -21,7 +21,7 @@ class SalesSummaryView(StaffRequiredMixin, TemplateView):
         # 総売上と総会員数の集計
         total_users = User.objects.filter(is_active=True,is_admin=False).count() # 総会員数
         total_subscriptionusers = User.objects.filter(is_paymentstatus=True,is_admin=False).count() # 有料会員数
-        total_revenue = Order.objects.filter(is_confirmed=True,is_admin=False).aggregate(Sum('amount'))['amount__sum'] or 0
+        total_revenue = Order.objects.filter(is_confirmed=True).aggregate(Sum('amount'))['amount__sum'] or 0
 
         context['total_users'] = total_users
         context['total_subscriptionusers'] = total_subscriptionusers
