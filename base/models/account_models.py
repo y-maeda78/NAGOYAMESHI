@@ -11,10 +11,11 @@ from base.models.shop_models import create_id
 # ユーザーモデル
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, username, password=None,                
+    def create_user(self, email, username, password=None,              
                     **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
+        
         user = self.model(
             username=username,
             email=self.normalize_email(email),

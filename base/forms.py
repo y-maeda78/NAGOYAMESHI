@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm 
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm # 追加：認証するため
 # from django.contrib.auth.forms import PasswordChangeForm # パスワード変更専用
 from base.models import Review, Reserve
@@ -11,7 +11,7 @@ from django.utils import timezone
 User = get_user_model()
 
 # class UserCreationForm(forms.ModelForm):
-class CustomUserCreationForm(BaseUserCreationForm):
+class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User

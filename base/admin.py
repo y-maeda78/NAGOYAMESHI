@@ -5,7 +5,6 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from base.forms import CustomUserCreationForm
 from django import forms  # 追記
 import json  # 追記
-
  
  
 class TagInline(admin.TabularInline):
@@ -21,7 +20,7 @@ class ShopAdmin(admin.ModelAdmin):
     inlines = [TagInline, IrregularHolidayInline]
     exclude = ['tags']
 
-class CustomUserAdmin(admin.ModelAdmin):
+class CustomUserAdmin(BaseUserAdmin): # 変更：ユーザーモデルを継承する
     # 管理画面のUser詳細画面で表示される項目
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password',)}),
@@ -41,8 +40,9 @@ class CustomUserAdmin(admin.ModelAdmin):
 
     # --- adminでuser作成用に追加 ---
     add_fieldsets = (
-        (None, {'fields': ('username', 'email', 'password',)}),
-        ('詳細情報', {'fields': ('is_paymentstatus', 'is_admin',)}),
+        (None, {'fields': ('username', 'email', 'password', 'password2',)}),
+        ('個人情報', {'fields': ('zipcode', 'prefecture', 'city', 'address1', 'address2', 'tel',)}),
+        ('詳細情報', {'fields': ('is_paymentstatus', 'is_admin', 'is_active',)}),
     )
     # --- adminでuser作成用に追加 ---
 

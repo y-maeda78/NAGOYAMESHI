@@ -9,6 +9,7 @@ from django.urls import reverse_lazy # 追加
 from base.forms import EmailAuthenticationForm,CustomUserCreationForm, UserUpdateForm
 from django.views.generic import TemplateView # 追加
 
+
 User = get_user_model()
 
 # 新規登録のビュー
