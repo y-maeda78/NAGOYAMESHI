@@ -10,10 +10,9 @@ from django.utils import timezone
  
 User = get_user_model()
 
-# class UserCreationForm(forms.ModelForm):
 class CustomUserCreationForm(UserCreationForm):
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = User
         fields = (
             "username",
@@ -24,6 +23,9 @@ class CustomUserCreationForm(UserCreationForm):
             "city",
             "address1",
             "address2",
+            "is_paymentstatus", 
+            "is_active", 
+            "is_admin",
         )
  
 # ユーザー情報更新用フォーム

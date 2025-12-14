@@ -39,14 +39,13 @@ class CustomUserAdmin(BaseUserAdmin): # 変更：ユーザーモデルを継承�
     filter_horizontal = ()
 
     # --- adminでuser作成用に追加 ---
-    add_fieldsets = (
-        (None, {'fields': ('username', 'email', 'password', 'password2',)}),
-        ('個人情報', {'fields': ('zipcode', 'prefecture', 'city', 'address1', 'address2', 'tel',)}),
-        ('詳細情報', {'fields': ('is_paymentstatus', 'is_admin', 'is_active',)}),
-    )
+    # add_fieldsets = (
+    #     (None, {'fields': ('username', 'email', 'password', 'password2',)}),
+    #     ('個人情報', {'fields': ('zipcode', 'prefecture', 'city', 'address1', 'address2', 'tel',)}),
+    #     ('詳細情報', {'fields': ('is_paymentstatus', 'is_admin', 'is_active',)}),
+    # )
     # --- adminでuser作成用に追加 ---
 
-    # add_form = UserCreationForm
     add_form = CustomUserCreationForm # 修正：フォーム名変更のため
 
 class CategoryAdmin(admin.ModelAdmin):
