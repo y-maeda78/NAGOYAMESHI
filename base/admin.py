@@ -20,7 +20,8 @@ class ShopAdmin(admin.ModelAdmin):
     inlines = [TagInline, IrregularHolidayInline]
     exclude = ['tags']
 
-class CustomUserAdmin(BaseUserAdmin): # 変更：ユーザーモデルを継承する
+# class CustomUserAdmin(BaseUserAdmin): # 変更：ユーザーモデルを継承する
+class CustomUserAdmin(admin.ModelAdmin):
     # 管理画面のUser詳細画面で表示される項目
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password',)}),
@@ -39,12 +40,25 @@ class CustomUserAdmin(BaseUserAdmin): # 変更：ユーザーモデルを継承�
     filter_horizontal = ()
 
     # --- adminでuser作成用に追加 ---
-    # add_fieldsets = (
-    #     (None, {'fields': ('username', 'email', 'password', 'password2',)}),
-    #     ('個人情報', {'fields': ('zipcode', 'prefecture', 'city', 'address1', 'address2', 'tel',)}),
-    #     ('詳細情報', {'fields': ('is_paymentstatus', 'is_admin', 'is_active',)}),
-    # )
-    # --- adminでuser作成用に追加 ---
+    add_fieldsets = (
+        (None, {'fields': ('username', 'email', 'password', 'password2',)}),
+        ('個人情報', {'fields': ('zipcode', 'prefecture', 'city', 'address1', 'address2', 'tel',)}),
+        ('詳細情報', {'fields': ('is_paymentstatus', 'is_admin', 'is_active',)}),
+    )
+    # --- ↑↑ ここまで ↑↑ ---
+
+    # --- adminでuser作成時にパスワードをハッシュ化するための処理 ---
+    def save_model(self, request, obj, form, change):
+        # 新規作成時
+        if not change:
+            obj.set_password(form.cleaned_data["password"])
+        else:
+            # 編集時にパスワードフィールドが変更されているかをチェック
+            orig_obj = self.model.objects.get(pk=obj.pk)
+            if obj.password != orig_obj.password:
+                obj.set_password(obj.password)
+        super().save_model(request, obj, form, change)
+
 
     add_form = CustomUserCreationForm # 修正：フォーム名変更のため
 

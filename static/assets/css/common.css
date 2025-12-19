@@ -59,7 +59,7 @@ img {
 }
 
 .container {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -132,6 +132,17 @@ a:focus {
 }
 
 
+@media screen and (max-width: 768px) {
+    .logo h1{
+        margin-left: 2px;
+        font-size: 1.4rem;
+    }
+    .logo_img{
+        width: 40px;
+    }
+}
+
+
 /* ====================================
     footer
 ==================================== */
@@ -175,11 +186,11 @@ a:focus {
 @media (max-width: 768px) {
 
     .footer_ttl a{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     
     .footer_container {
-        padding: 20px 30px;
+        padding: 15px 20px;
     }
     
     .footer_link {
@@ -197,6 +208,15 @@ a:focus {
 
 
 /* responsive -------------------------------------------------------------------------------------------------- */
+
+.pc{
+    display: block;
+}
+
+.sp{
+    display: none;
+}
+
 @media (max-width: 767px) {
     
     
@@ -228,14 +248,6 @@ a:focus {
         display: block;
     }
 
-    .pc{
-        display: none;
-    }
-
-    .sp{
-        display: none;
-    }
-
     .wrap{
         width: 80%;
         max-width: 700px;
@@ -245,15 +257,7 @@ a:focus {
 
 @media (min-width: 1025px) {
 
-    .pc{
-        display: block;
-    }
-
     .tb{
-        display: none;
-    }
-
-    .sp{
         display: none;
     }
 }

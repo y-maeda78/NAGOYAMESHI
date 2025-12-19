@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm 
 from django.contrib.auth.forms import AuthenticationForm # 追加：認証するため
 # from django.contrib.auth.forms import PasswordChangeForm # パスワード変更専用
 from base.models import Review, Reserve
@@ -10,9 +10,11 @@ from django.utils import timezone
  
 User = get_user_model()
 
-class CustomUserCreationForm(UserCreationForm):
+# class CustomUserCreationForm(UserCreationForm):
+class CustomUserCreationForm(BaseUserCreationForm):
 
-    class Meta(UserCreationForm.Meta):
+    # class Meta(UserCreationForm.Meta):
+    class Meta:
         model = User
         fields = (
             "username",
@@ -23,9 +25,6 @@ class CustomUserCreationForm(UserCreationForm):
             "city",
             "address1",
             "address2",
-            "is_paymentstatus", 
-            "is_active", 
-            "is_admin",
         )
  
 # ユーザー情報更新用フォーム
